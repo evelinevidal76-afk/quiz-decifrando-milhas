@@ -3,785 +3,524 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quiz — Qual é o seu Perfil de Milhas? | Decifrando Milhas</title>
-<meta name="description" content="Descubra seu perfil de milhas e saiba exatamente o que falta para voar em executiva pagando até 90% menos.">
+<title>Quiz — Decifrando Milhas 2026</title>
+<meta name="description" content="Descubra como voar em executiva pagando até 90% menos. Quiz gratuito em 1 minuto.">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --navy: #0b1120;
-    --navy-mid: #131d30;
-    --navy-light: #1a2540;
     --gold: #c9a84c;
     --gold-light: #e8c97a;
-    --gold-pale: #f5e9c8;
     --white: #ffffff;
-    --smoke: #e8e4da;
     --mid: #7a8299;
   }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html {
-    scroll-behavior: smooth;
-    background: #0b1120;
-  }
-
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { background:#0b1120; }
   body {
-    font-family: 'DM Sans', sans-serif;
-    background: #0b1120 !important;
-    background-color: #0b1120 !important;
-    color: #ffffff;
-    min-height: 100vh;
-    overflow-x: hidden;
+    font-family:'DM Sans',sans-serif;
+    background-color:#0b1120 !important;
+    color:#ffffff; min-height:100vh; overflow-x:hidden;
   }
-
-  /* ── BACKGROUND STARS ── */
-  .stars {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    overflow: hidden;
-  }
+  .stars { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
   .star {
-    position: absolute;
-    width: 2px; height: 2px;
-    background: rgba(201,168,76,0.4);
-    border-radius: 50%;
-    animation: twinkle var(--d, 3s) ease-in-out infinite var(--delay, 0s);
+    position:absolute; width:2px; height:2px;
+    background:rgba(201,168,76,0.5); border-radius:50%;
+    animation:twinkle var(--d,3s) ease-in-out infinite var(--delay,0s);
   }
-  @keyframes twinkle { 0%,100%{opacity:0.2} 50%{opacity:1} }
-
-  /* ── GLOW ── */
-  .glow-top {
-    position: fixed;
-    top: -200px; left: 50%;
-    transform: translateX(-50%);
-    width: 600px; height: 400px;
-    background: radial-gradient(ellipse, rgba(201,168,76,0.08) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
+  @keyframes twinkle { 0%,100%{opacity:0.15} 50%{opacity:0.9} }
+  .glow {
+    position:fixed; top:-200px; left:50%; transform:translateX(-50%);
+    width:700px; height:500px;
+    background:radial-gradient(ellipse,rgba(201,168,76,0.07) 0%,transparent 70%);
+    pointer-events:none; z-index:0;
   }
-
-  /* ── WRAPPER ── */
-  .wrapper {
-    position: relative;
-    z-index: 1;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0 20px 60px;
+  .app {
+    position:relative; z-index:1; min-height:100vh;
+    display:flex; flex-direction:column; align-items:center;
+    padding:0 20px 80px;
   }
-
-  /* ── HEADER ── */
-  .header {
-    width: 100%;
-    max-width: 680px;
-    padding: 70px 0 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+  .topbar {
+    width:100%; max-width:600px; padding:28px 0 16px;
+    display:flex; flex-direction:column; align-items:center; gap:6px;
   }
-  .logo-mark {
-    width: 56px; height: 56px;
-    background: linear-gradient(135deg, var(--gold) 0%, #8a5e1a 100%);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-    box-shadow: 0 0 30px rgba(201,168,76,0.3);
+  .topbar-icon { font-size:2.2rem; }
+  .topbar-text {
+    font-family:'DM Mono',monospace; font-size:0.62rem;
+    letter-spacing:3px; color:var(--gold); text-transform:uppercase;
   }
-  .logo-name {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 3px;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 48px;
+  .progress-wrap { width:100%; max-width:600px; margin-bottom:28px; }
+  .progress-top { display:flex; justify-content:space-between; margin-bottom:8px; }
+  .progress-label { font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:2px; color:var(--gold); text-transform:uppercase; }
+  .progress-pct { font-family:'DM Mono',monospace; font-size:0.6rem; color:rgba(255,255,255,0.3); }
+  .progress-bg { height:3px; background:rgba(255,255,255,0.07); border-radius:2px; }
+  .progress-fill { height:100%; background:linear-gradient(to right,var(--gold),var(--gold-light)); border-radius:2px; transition:width 0.5s cubic-bezier(0.4,0,0.2,1); }
+  .screen { display:none; width:100%; max-width:600px; animation:fadeUp 0.4s ease both; }
+  .screen.active { display:flex; flex-direction:column; align-items:center; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+  .tag {
+    font-family:'DM Mono',monospace; font-size:0.62rem; letter-spacing:3px;
+    color:var(--gold); text-transform:uppercase; margin-bottom:16px;
+    display:flex; align-items:center; gap:10px;
   }
-
-  /* ── INTRO SCREEN ── */
-  .screen { display: none; width: 100%; max-width: 640px; }
-  .screen.active { display: flex; flex-direction: column; align-items: center; }
-
-  .intro-eyebrow {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
-    letter-spacing: 3px;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  .tag::before,.tag::after { content:''; width:24px; height:1px; background:rgba(201,168,76,0.35); }
+  .pres-title {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.6rem,5vw,2.4rem); line-height:1.15;
+    text-align:center; margin-bottom:16px;
   }
-  .intro-eyebrow::before,
-  .intro-eyebrow::after {
-    content: '';
-    width: 30px; height: 1px;
-    background: rgba(201,168,76,0.4);
+  .pres-title em { color:var(--gold); font-style:italic; }
+  .pres-sub {
+    font-size:0.95rem; color:rgba(255,255,255,0.6);
+    text-align:center; line-height:1.7; max-width:480px;
+    margin-bottom:32px; font-weight:300;
   }
-
-  .intro-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 6vw, 3rem);
-    line-height: 1.1;
-    text-align: center;
-    margin-bottom: 20px;
+  .pres-sub strong { color:var(--white); font-weight:600; }
+  .cards { display:flex; flex-direction:column; gap:10px; width:100%; margin-bottom:32px; }
+  .card {
+    background:rgba(255,255,255,0.03); border:1px solid rgba(201,168,76,0.12);
+    padding:14px 18px; border-radius:2px;
+    display:flex; align-items:center; gap:12px;
   }
-  .intro-title em { color: var(--gold); font-style: italic; }
-
-  .intro-sub {
-    font-size: 1rem;
-    color: rgba(255,255,255,0.6);
-    text-align: center;
-    line-height: 1.7;
-    max-width: 480px;
-    margin-bottom: 40px;
-    font-weight: 300;
+  .card-icon {
+    width:34px; height:34px; background:rgba(201,168,76,0.1); border-radius:50%;
+    display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0;
   }
-
-  .intro-bullets {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
-    margin-bottom: 44px;
+  .card-text { font-size:0.88rem; color:rgba(255,255,255,0.75); line-height:1.4; }
+  .card-text strong { color:var(--white); }
+  .btn {
+    background:linear-gradient(135deg,var(--gold) 0%,#a8771e 100%);
+    color:var(--navy); border:none; padding:17px 40px; width:100%;
+    font-family:'DM Sans',sans-serif; font-weight:700; font-size:1rem;
+    cursor:pointer; border-radius:2px;
+    transition:transform 0.15s,box-shadow 0.15s;
+    box-shadow:0 4px 24px rgba(201,168,76,0.25); letter-spacing:0.3px;
   }
-  .bullet {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(201,168,76,0.12);
-    padding: 14px 18px;
-    border-radius: 2px;
+  .btn:hover { transform:translateY(-2px); box-shadow:0 8px 32px rgba(201,168,76,0.35); }
+  .btn:active { transform:translateY(0); }
+  .btn-note {
+    margin-top:12px; text-align:center; font-family:'DM Mono',monospace;
+    font-size:0.6rem; letter-spacing:1.5px; color:rgba(255,255,255,0.2); text-transform:uppercase;
   }
-  .bullet-icon {
-    width: 32px; height: 32px;
-    background: rgba(201,168,76,0.12);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-    flex-shrink: 0;
-  }
-  .bullet-text {
-    font-size: 0.9rem;
-    color: rgba(255,255,255,0.75);
-    line-height: 1.4;
-  }
-  .bullet-text strong { color: var(--white); }
-
-  .btn-start {
-    background: linear-gradient(135deg, var(--gold) 0%, #a8771e 100%);
-    color: var(--navy);
-    border: none;
-    padding: 18px 52px;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    cursor: pointer;
-    letter-spacing: 0.3px;
-    border-radius: 2px;
-    transition: transform 0.15s, box-shadow 0.15s;
-    box-shadow: 0 4px 24px rgba(201,168,76,0.25);
-    width: 100%;
-    max-width: 360px;
-  }
-  .btn-start:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(201,168,76,0.35);
-  }
-  .btn-start:active { transform: translateY(0); }
-
-  .intro-note {
-    margin-top: 14px;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 1.5px;
-    color: rgba(255,255,255,0.25);
-    text-transform: uppercase;
-  }
-
-  /* ── PROGRESS ── */
-  .progress-wrap {
-    width: 100%;
-    max-width: 640px;
-    margin-bottom: 36px;
-  }
-  .progress-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  .progress-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 2px;
-    color: var(--gold);
-    text-transform: uppercase;
-  }
-  .progress-frac {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    color: rgba(255,255,255,0.3);
-  }
-  .progress-bar-bg {
-    height: 2px;
-    background: rgba(255,255,255,0.08);
-    width: 100%;
-  }
-  .progress-bar-fill {
-    height: 100%;
-    background: linear-gradient(to right, var(--gold), var(--gold-light));
-    transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
-  }
-
-  /* ── QUESTION SCREEN ── */
-  .question-wrap {
-    width: 100%;
-    max-width: 640px;
-    animation: fadeUp 0.4s ease both;
-  }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .q-number {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 3px;
-    color: rgba(201,168,76,0.5);
-    text-transform: uppercase;
-    margin-bottom: 16px;
+  .q-step {
+    font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:3px;
+    color:rgba(201,168,76,0.5); text-transform:uppercase; margin-bottom:14px; align-self:flex-start;
   }
   .q-text {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.4rem, 4vw, 1.9rem);
-    line-height: 1.25;
-    margin-bottom: 32px;
-    color: var(--white);
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.3rem,4vw,1.75rem); line-height:1.25;
+    margin-bottom:28px; align-self:flex-start;
   }
-  .q-text em { color: var(--gold); font-style: italic; }
-
-  .options { display: flex; flex-direction: column; gap: 12px; }
-
-  .option {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.08);
-    padding: 18px 22px;
-    cursor: pointer;
-    border-radius: 2px;
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    transition: all 0.2s;
-    text-align: left;
+  .q-text em { color:var(--gold); font-style:italic; }
+  .options { display:flex; flex-direction:column; gap:10px; width:100%; }
+  .opt {
+    background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08);
+    padding:16px 20px; cursor:pointer; border-radius:2px;
+    display:flex; align-items:center; gap:14px;
+    transition:all 0.2s; text-align:left; width:100%;
   }
-  .option:hover {
-    background: rgba(201,168,76,0.06);
-    border-color: rgba(201,168,76,0.3);
-    transform: translateX(4px);
+  .opt:hover { background:rgba(201,168,76,0.06); border-color:rgba(201,168,76,0.3); transform:translateX(3px); }
+  .opt.selected { background:rgba(201,168,76,0.12); border-color:var(--gold); }
+  .opt-dot {
+    width:22px; height:22px; border-radius:50%;
+    border:1px solid rgba(201,168,76,0.4);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all 0.2s;
   }
-  .option.selected {
-    background: rgba(201,168,76,0.12);
-    border-color: var(--gold);
+  .opt.selected .opt-dot { background:var(--gold); border-color:var(--gold); }
+  .opt-inner { width:8px; height:8px; border-radius:50%; background:var(--navy); opacity:0; transition:opacity 0.2s; }
+  .opt.selected .opt-inner { opacity:1; }
+  .opt-check {
+    width:22px; height:22px; border-radius:2px; border:1px solid rgba(201,168,76,0.4);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all 0.2s; font-size:0.7rem; color:transparent;
   }
-  .option-letter {
-    width: 28px; height: 28px;
-    border: 1px solid rgba(201,168,76,0.35);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--gold);
-    flex-shrink: 0;
-    transition: all 0.2s;
+  .opt.selected .opt-check { background:var(--gold); border-color:var(--gold); color:var(--navy); }
+  .opt-text { font-size:0.92rem; color:rgba(255,255,255,0.8); line-height:1.4; }
+  .opt.selected .opt-text { color:var(--white); }
+  .btn-next {
+    margin-top:20px;
+    background:linear-gradient(135deg,var(--gold) 0%,#a8771e 100%);
+    color:var(--navy); border:none; padding:15px 32px; width:100%;
+    font-family:'DM Sans',sans-serif; font-weight:700; font-size:0.95rem;
+    cursor:pointer; border-radius:2px; transition:transform 0.15s;
+    box-shadow:0 4px 20px rgba(201,168,76,0.2); display:none;
   }
-  .option.selected .option-letter {
-    background: var(--gold);
-    color: var(--navy);
-    border-color: var(--gold);
+  .btn-next.show { display:block; }
+  .btn-next:hover { transform:translateY(-2px); }
+  .field-label { font-family:'DM Mono',monospace; font-size:0.62rem; letter-spacing:2px; color:var(--gold); text-transform:uppercase; margin-bottom:6px; display:block; }
+  .field-input {
+    width:100%; padding:14px 18px;
+    background:rgba(255,255,255,0.04); border:1px solid rgba(201,168,76,0.2);
+    color:var(--white); font-family:'DM Sans',sans-serif; font-size:1rem;
+    border-radius:2px; outline:none; transition:border-color 0.2s; -webkit-appearance:none;
   }
-  .option-text {
-    font-size: 0.95rem;
-    color: rgba(255,255,255,0.8);
-    line-height: 1.45;
-    padding-top: 2px;
-  }
-  .option.selected .option-text { color: var(--white); }
-
-  /* ── RESULT SCREEN ── */
-  .result-wrap {
-    width: 100%;
-    max-width: 640px;
-    animation: fadeUp 0.5s ease both;
-  }
-
+  .field-input:focus { border-color:var(--gold); }
+  .field-input::placeholder { color:rgba(255,255,255,0.25); }
+  .form-wrap { width:100%; display:flex; flex-direction:column; gap:14px; margin-bottom:24px; }
+  .testi-wrap { display:flex; flex-direction:column; gap:14px; width:100%; margin-bottom:32px; }
+  .testi { background:rgba(255,255,255,0.03); border-left:3px solid var(--gold); padding:20px; }
+  .testi-stars { color:var(--gold); font-size:0.8rem; margin-bottom:8px; }
+  .testi-text { font-size:0.88rem; color:rgba(255,255,255,0.7); line-height:1.65; font-style:italic; margin-bottom:10px; }
+  .testi-author { font-family:'DM Mono',monospace; font-size:0.62rem; color:var(--gold); letter-spacing:1px; }
+  .loading-icon { font-size:3rem; margin-bottom:20px; animation:fly 1.5s ease-in-out infinite alternate; }
+  @keyframes fly { from{transform:translateY(0) rotate(-5deg)} to{transform:translateY(-12px) rotate(5deg)} }
+  .loading-title { font-family:'Playfair Display',serif; font-size:1.6rem; text-align:center; margin-bottom:10px; }
+  .loading-sub { font-size:0.88rem; color:rgba(255,255,255,0.5); text-align:center; margin-bottom:32px; }
+  .loading-bg { width:100%; height:6px; background:rgba(255,255,255,0.07); border-radius:3px; overflow:hidden; margin-bottom:12px; }
+  .loading-fill { height:100%; background:linear-gradient(to right,var(--gold),var(--gold-light)); border-radius:3px; width:0%; transition:width 0.3s ease; }
+  .loading-pct { font-family:'DM Mono',monospace; font-size:0.7rem; color:var(--gold); text-align:center; }
   .result-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(201,168,76,0.12);
-    border: 1px solid rgba(201,168,76,0.25);
-    padding: 6px 16px;
-    margin-bottom: 24px;
-    border-radius: 2px;
+    display:inline-flex; align-items:center; gap:8px;
+    background:rgba(201,168,76,0.12); border:1px solid rgba(201,168,76,0.25);
+    padding:6px 16px; margin-bottom:20px; border-radius:2px;
   }
-  .result-badge span {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 2px;
-    color: var(--gold);
-    text-transform: uppercase;
+  .result-badge span { font-family:'DM Mono',monospace; font-size:0.62rem; letter-spacing:2px; color:var(--gold); text-transform:uppercase; }
+  .result-title { font-family:'Playfair Display',serif; font-size:clamp(1.5rem,4vw,2rem); line-height:1.2; text-align:center; margin-bottom:16px; }
+  .result-title em { color:var(--gold); font-style:italic; }
+  .ba-wrap { display:grid; grid-template-columns:1fr 1fr; gap:12px; width:100%; margin-bottom:28px; }
+  .ba-col { padding:18px 14px; border-radius:2px; }
+  .ba-before { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); }
+  .ba-after { background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.25); }
+  .ba-label { font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px; display:block; }
+  .ba-before .ba-label { color:rgba(255,255,255,0.3); }
+  .ba-after .ba-label { color:var(--gold); }
+  .ba-item { font-size:0.8rem; line-height:1.5; margin-bottom:6px; display:flex; gap:6px; }
+  .ba-before .ba-item { color:rgba(255,255,255,0.45); }
+  .ba-after .ba-item { color:rgba(255,255,255,0.85); }
+  .divider { width:100%; height:1px; background:rgba(201,168,76,0.15); margin:28px 0; }
+  .offer-title { font-family:'Playfair Display',serif; font-size:1.4rem; text-align:center; margin-bottom:16px; }
+  .offer-title em { color:var(--gold); font-style:italic; }
+  .offer-list { width:100%; display:flex; flex-direction:column; gap:10px; margin-bottom:24px; }
+  .offer-item {
+    display:flex; align-items:flex-start; gap:12px;
+    background:rgba(255,255,255,0.02); border:1px solid rgba(201,168,76,0.1);
+    padding:14px 16px; border-radius:2px;
   }
-
-  .result-profile {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 3px;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 10px;
+  .offer-check { color:var(--gold); font-size:1rem; flex-shrink:0; margin-top:1px; }
+  .offer-text { font-size:0.88rem; color:rgba(255,255,255,0.75); line-height:1.4; }
+  .offer-text strong { color:var(--white); }
+  .price-box {
+    text-align:center; width:100%;
+    background:rgba(201,168,76,0.06); border:1px solid rgba(201,168,76,0.2);
+    padding:24px; border-radius:2px; margin-bottom:16px;
   }
-
-  .result-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 5vw, 2.6rem);
-    line-height: 1.15;
-    margin-bottom: 20px;
+  .price-label2 { font-family:'DM Mono',monospace; font-size:0.62rem; letter-spacing:2px; color:var(--gold); text-transform:uppercase; margin-bottom:8px; }
+  .price-val { font-family:'Playfair Display',serif; font-size:3rem; color:var(--white); font-weight:900; margin-bottom:4px; }
+  .price-sub2 { font-size:0.8rem; color:rgba(255,255,255,0.4); line-height:1.5; }
+  .price-sub2 s { text-decoration:line-through; }
+  .guarantee {
+    display:flex; align-items:center; gap:12px;
+    background:rgba(46,204,113,0.06); border:1px solid rgba(46,204,113,0.2);
+    padding:14px 16px; border-radius:2px; width:100%; margin-bottom:24px;
   }
-  .result-title em { color: var(--gold); font-style: italic; }
-
-  .result-desc {
-    font-size: 0.95rem;
-    color: rgba(255,255,255,0.65);
-    line-height: 1.75;
-    margin-bottom: 32px;
-    font-weight: 300;
-  }
-  .result-desc strong { color: var(--white); font-weight: 600; }
-
-  .result-divider {
-    width: 100%;
-    height: 1px;
-    background: rgba(201,168,76,0.15);
-    margin-bottom: 32px;
-  }
-
-  .result-cta-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 2.5px;
-    color: rgba(255,255,255,0.35);
-    text-transform: uppercase;
-    margin-bottom: 16px;
-  }
-
-  .result-cta-headline {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
-    line-height: 1.3;
-    margin-bottom: 14px;
-  }
-
-  .result-cta-sub {
-    font-size: 0.88rem;
-    color: rgba(255,255,255,0.5);
-    line-height: 1.65;
-    margin-bottom: 28px;
-    font-weight: 300;
-  }
-
-  .result-pillars {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-bottom: 32px;
-  }
-  .result-pillar {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(201,168,76,0.12);
-    padding: 14px 12px;
-    text-align: center;
-    border-radius: 2px;
-  }
-  .result-pillar-icon { font-size: 1.2rem; margin-bottom: 6px; display: block; }
-  .result-pillar-name { font-size: 0.75rem; font-weight: 600; color: var(--white); margin-bottom: 2px; }
-  .result-pillar-desc { font-size: 0.68rem; color: rgba(255,255,255,0.4); line-height: 1.4; }
-
-  .btn-cta {
-    background: linear-gradient(135deg, var(--gold) 0%, #a8771e 100%);
-    color: var(--navy);
-    border: none;
-    padding: 18px 32px;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 2px;
-    transition: transform 0.15s, box-shadow 0.15s;
-    box-shadow: 0 4px 24px rgba(201,168,76,0.25);
-    width: 100%;
-    margin-bottom: 14px;
-  }
-  .btn-cta:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(201,168,76,0.35);
-  }
-
-  .btn-retry {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.12);
-    color: rgba(255,255,255,0.4);
-    padding: 12px 24px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.85rem;
-    cursor: pointer;
-    border-radius: 2px;
-    width: 100%;
-    transition: border-color 0.2s, color 0.2s;
-  }
-  .btn-retry:hover {
-    border-color: rgba(255,255,255,0.25);
-    color: rgba(255,255,255,0.65);
-  }
-
-  .result-price {
-    text-align: center;
-    margin: 20px 0 0;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 1.5px;
-    color: rgba(255,255,255,0.25);
-  }
-  .result-price strong { color: var(--gold); }
-
-  /* ── FOOTER ── */
-  .footer {
-    margin-top: 60px;
-    text-align: center;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.62rem;
-    letter-spacing: 2px;
-    color: rgba(255,255,255,0.15);
-    text-transform: uppercase;
-  }
-
-  @media (max-width: 480px) {
-    .result-pillars { grid-template-columns: 1fr; }
-    .intro-title { font-size: 1.8rem; }
-  }
+  .guarantee-icon { font-size:1.4rem; flex-shrink:0; }
+  .guarantee-text { font-size:0.82rem; color:rgba(255,255,255,0.65); line-height:1.5; }
+  .guarantee-text strong { color:#2ecc71; }
+  .footer-note { margin-top:20px; text-align:center; font-family:'DM Mono',monospace; font-size:0.58rem; letter-spacing:1.5px; color:rgba(255,255,255,0.2); text-transform:uppercase; }
+  @media(max-width:420px) { .ba-wrap{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
-
-<!-- Stars background -->
 <div class="stars" id="stars"></div>
-<div class="glow-top"></div>
+<div class="glow"></div>
+<div class="app">
 
-<div class="wrapper">
-
-  <!-- HEADER -->
-  <div class="header">
-    <div class="logo-mark">✈</div>
-    <div class="logo-name">Decifrando Milhas · 2026</div>
+  <div class="topbar">
+    <div class="topbar-icon">✈️</div>
+    <div class="topbar-text">decifrando milhas · 2026</div>
   </div>
 
-  <!-- SCREEN: INTRO -->
-  <div class="screen active" id="screen-intro">
-    <div class="intro-eyebrow">Quiz de Diagnóstico</div>
-
-    <h1 class="intro-title">
-      Qual é o seu<br><em>perfil de milhas?</em>
-    </h1>
-
-    <p class="intro-sub">
-      5 perguntas. 2 minutos. Descubra exatamente onde você está travado — e o que falta para voar em executiva pagando até 90% menos.
-    </p>
-
-    <div class="intro-bullets">
-      <div class="bullet">
-        <div class="bullet-icon">🎯</div>
-        <div class="bullet-text"><strong>Diagnóstico personalizado</strong> baseado na sua situação real com pontos</div>
-      </div>
-      <div class="bullet">
-        <div class="bullet-icon">🗺️</div>
-        <div class="bullet-text"><strong>Plano de ação</strong> específico para o seu perfil chegar à executiva</div>
-      </div>
-      <div class="bullet">
-        <div class="bullet-icon">⚡</div>
-        <div class="bullet-text"><strong>Resultado imediato</strong> — sem cadastro, sem enrolação</div>
-      </div>
+  <div class="progress-wrap" id="prog-wrap" style="display:none">
+    <div class="progress-top">
+      <span class="progress-label" id="prog-label">Pergunta 1 de 8</span>
+      <span class="progress-pct" id="prog-pct">12%</span>
     </div>
-
-    <button class="btn-start" onclick="startQuiz()">Descobrir Meu Perfil →</button>
-    <p class="intro-note">5 perguntas · resultado imediato</p>
+    <div class="progress-bg"><div class="progress-fill" id="prog-fill" style="width:12%"></div></div>
   </div>
 
-  <!-- SCREEN: QUESTION -->
-  <div class="screen" id="screen-question">
-    <div class="progress-wrap">
-      <div class="progress-meta">
-        <span class="progress-label">Pergunta <span id="q-current">1</span> de 5</span>
-        <span class="progress-frac" id="q-frac">20%</span>
-      </div>
-      <div class="progress-bar-bg">
-        <div class="progress-bar-fill" id="progress-fill" style="width:20%"></div>
-      </div>
+  <!-- S0: ABERTURA -->
+  <div class="screen active" id="s0">
+    <div class="tag">Quiz Gratuito · 1 Minuto</div>
+    <h1 class="pres-title">Descubra como voar de<br><em>Executiva pagando muito menos</em></h1>
+    <p class="pres-sub">Responda o quiz e descubra seu potencial para viajar com milhas — mesmo começando do zero.</p>
+    <div class="cards">
+      <div class="card"><div class="card-icon">🎯</div><div class="card-text"><strong>Diagnóstico personalizado</strong> baseado na sua situação real</div></div>
+      <div class="card"><div class="card-icon">⚡</div><div class="card-text"><strong>Resultado em 1 minuto</strong> — sem cadastro inicial</div></div>
+      <div class="card"><div class="card-icon">✈️</div><div class="card-text"><strong>Plano de ação</strong> para chegar à executiva pagando menos</div></div>
     </div>
+    <button class="btn" onclick="goTo(1)">COMEÇAR AGORA →</button>
+    <p class="btn-note">gratuito · sem compromisso</p>
+  </div>
 
-    <div class="question-wrap" id="question-wrap">
-      <!-- injected by JS -->
+  <!-- S1: FAIXA ETÁRIA -->
+  <div class="screen" id="s1">
+    <div class="q-step">Pergunta 1 de 8</div>
+    <div class="q-text">Qual <em>faixa etária</em> combina com você?</div>
+    <div class="options">
+      <button class="opt" onclick="pick(this,2)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">18 a 24 anos</div></button>
+      <button class="opt" onclick="pick(this,2)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">25 a 34 anos</div></button>
+      <button class="opt" onclick="pick(this,2)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">35 a 44 anos</div></button>
+      <button class="opt" onclick="pick(this,2)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">45 anos ou mais</div></button>
     </div>
   </div>
 
-  <!-- SCREEN: RESULT -->
-  <div class="screen" id="screen-result">
-    <!-- injected by JS -->
+  <!-- S2: JÁ USOU MILHAS -->
+  <div class="screen" id="s2">
+    <div class="q-step">Pergunta 2 de 8</div>
+    <div class="q-text">Você já <em>utilizou milhas</em> alguma vez?</div>
+    <div class="options">
+      <button class="opt" onclick="pick(this,3)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Nunca usei</div></button>
+      <button class="opt" onclick="pick(this,3)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Já ouvi falar, mas não entendo</div></button>
+      <button class="opt" onclick="pick(this,3)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Já usei poucas vezes</div></button>
+      <button class="opt" onclick="pick(this,3)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Uso com frequência</div></button>
+    </div>
   </div>
 
-  <div class="footer">decifrandomilhas.com.br · @decifrandominhasmilhas</div>
+  <!-- S3: PROVA SOCIAL -->
+  <div class="screen" id="s3">
+    <div style="font-size:2.5rem;margin-bottom:16px">🌍</div>
+    <div class="tag">Você não está sozinho</div>
+    <h2 class="pres-title">Pessoas comuns já estão <em>voando melhor</em> com milhas</h2>
+    <p class="pres-sub">Brasileiros comuns aprendem todos os dias como emitir passagens pagando muito menos — e descobrem que <strong>executiva não é só para quem tem muito dinheiro.</strong></p>
+    <div class="testi-wrap">
+      <div class="testi">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Eu achava que executiva era só para milionários. Depois que aprendi sobre milhas, consegui emitir minha primeira passagem pagando muito menos."</div>
+        <div class="testi-author">— Mariana S., São Paulo</div>
+      </div>
+      <div class="testi">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Comecei do zero e hoje consigo economizar em praticamente toda viagem. Já voei em executiva para a Europa pagando só as taxas."</div>
+        <div class="testi-author">— Roberto C., Rio de Janeiro</div>
+      </div>
+    </div>
+    <button class="btn" onclick="goTo(4)">CONTINUAR →</button>
+  </div>
+
+  <!-- S4: DIFICULDADE -->
+  <div class="screen" id="s4">
+    <div class="q-step">Pergunta 3 de 8</div>
+    <div class="q-text">Qual sua <em>maior dificuldade</em> hoje com viagens?</div>
+    <div class="options">
+      <button class="opt" onclick="pick(this,5)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">As passagens estão caras demais</div></button>
+      <button class="opt" onclick="pick(this,5)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Não entendo nada sobre milhas</div></button>
+      <button class="opt" onclick="pick(this,5)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Acho complicado acumular pontos</div></button>
+      <button class="opt" onclick="pick(this,5)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Sempre acho que executiva é impossível para mim</div></button>
+      <button class="opt" onclick="pick(this,5)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Nunca consigo aproveitar as promoções</div></button>
+    </div>
+  </div>
+
+  <!-- S5: CAPTURA -->
+  <div class="screen" id="s5">
+    <div class="tag">Quase lá</div>
+    <h2 class="pres-title">Para personalizar<br>seu <em>resultado</em></h2>
+    <p class="pres-sub">Preencha abaixo para receber seu diagnóstico completo e plano de ação personalizado.</p>
+    <div class="form-wrap">
+      <div><label class="field-label">Seu nome</label><input class="field-input" type="text" id="inp-name" placeholder="Como posso te chamar?" autocomplete="given-name"></div>
+      <div><label class="field-label">Seu melhor e-mail</label><input class="field-input" type="email" id="inp-email" placeholder="seu@email.com" autocomplete="email"></div>
+    </div>
+    <button class="btn" onclick="submitLead()">VER MEU DIAGNÓSTICO →</button>
+    <p class="btn-note">seus dados estão seguros · sem spam</p>
+  </div>
+
+  <!-- S6: FREQUÊNCIA -->
+  <div class="screen" id="s6">
+    <div class="q-step">Pergunta 4 de 8</div>
+    <div class="q-text" id="q6">Com qual <em>frequência</em> você viaja?</div>
+    <div class="options">
+      <button class="opt" onclick="pick(this,7)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Quase nunca</div></button>
+      <button class="opt" onclick="pick(this,7)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">1 vez por ano</div></button>
+      <button class="opt" onclick="pick(this,7)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">2 a 4 vezes por ano</div></button>
+      <button class="opt" onclick="pick(this,7)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Viajo frequentemente</div></button>
+    </div>
+  </div>
+
+  <!-- S7: TOCAR NA FERIDA -->
+  <div class="screen" id="s7">
+    <div class="q-step">Pergunta 5 de 8</div>
+    <div class="q-text">Como você se sente vendo pessoas viajando barato enquanto <em>você paga caro?</em></div>
+    <div class="options">
+      <button class="opt" onclick="pick(this,8)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Frustrado(a) — parece injusto</div></button>
+      <button class="opt" onclick="pick(this,8)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Parece impossível para mim conseguir o mesmo</div></button>
+      <button class="opt" onclick="pick(this,8)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Sinto que estou perdendo oportunidades</div></button>
+      <button class="opt" onclick="pick(this,8)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Tenho medo de estar gastando dinheiro à toa</div></button>
+    </div>
+  </div>
+
+  <!-- S8: MULTI -->
+  <div class="screen" id="s8">
+    <div class="q-step">Pergunta 6 de 8</div>
+    <div class="q-text">O que mais <em>te incomoda</em> nas viagens?</div>
+    <p style="font-size:0.75rem;color:rgba(255,255,255,0.3);margin-bottom:16px;align-self:flex-start;font-family:'DM Mono',monospace;letter-spacing:1px">Selecione quantas quiser</p>
+    <div class="options" id="multi8">
+      <button class="opt" onclick="multi(this,'btn8')"><div class="opt-check">✓</div><div class="opt-text">Parcelar viagens e ficar endividado(a)</div></button>
+      <button class="opt" onclick="multi(this,'btn8')"><div class="opt-check">✓</div><div class="opt-text">Precisar economizar meses para viajar</div></button>
+      <button class="opt" onclick="multi(this,'btn8')"><div class="opt-check">✓</div><div class="opt-text">Não conseguir viajar mais vezes por ano</div></button>
+      <button class="opt" onclick="multi(this,'btn8')"><div class="opt-check">✓</div><div class="opt-text">Nunca conseguir viajar de executiva</div></button>
+      <button class="opt" onclick="multi(this,'btn8')"><div class="opt-check">✓</div><div class="opt-text">Gastar muito em passagens</div></button>
+      <button class="opt" onclick="multi(this,'btn8')"><div class="opt-check">✓</div><div class="opt-text">Não aproveitar os benefícios do meu cartão</div></button>
+    </div>
+    <button class="btn-next" id="btn8" onclick="goTo(9)">CONTINUAR →</button>
+  </div>
+
+  <!-- S9: OBJETIVO -->
+  <div class="screen" id="s9">
+    <div class="q-step">Pergunta 7 de 8</div>
+    <div class="q-text">Qual é o seu maior <em>objetivo com milhas?</em></div>
+    <div class="options">
+      <button class="opt" onclick="pick(this,10)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Viajar pagando muito menos</div></button>
+      <button class="opt" onclick="pick(this,10)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Viajar de executiva pelo menos uma vez</div></button>
+      <button class="opt" onclick="pick(this,10)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Conhecer mais países com o mesmo orçamento</div></button>
+      <button class="opt" onclick="pick(this,10)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Viajar com mais conforto e frequência</div></button>
+      <button class="opt" onclick="pick(this,10)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Aprender um jeito mais inteligente de viajar</div></button>
+    </div>
+  </div>
+
+  <!-- S10: COMPROMETIMENTO -->
+  <div class="screen" id="s10">
+    <div class="q-step">Pergunta 8 de 8</div>
+    <div class="q-text" id="q10">Qual seu <em>nível de comprometimento</em> para aprender isso?</div>
+    <div class="options">
+      <button class="opt" onclick="pick(this,11)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Estou muito decidido(a) — quero começar já</div></button>
+      <button class="opt" onclick="pick(this,11)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Quero começar o quanto antes</div></button>
+      <button class="opt" onclick="pick(this,11)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Tenho medo de não conseguir sozinho(a)</div></button>
+      <button class="opt" onclick="pick(this,11)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Quero entender melhor antes de decidir</div></button>
+    </div>
+  </div>
+
+  <!-- S11: LOADING -->
+  <div class="screen" id="s11">
+    <div class="loading-icon">✈️</div>
+    <h2 class="loading-title">Analisando seu perfil...</h2>
+    <p class="loading-sub">Estamos preparando seu plano personalizado para viajar pagando menos.</p>
+    <div class="loading-bg"><div class="loading-fill" id="lfill"></div></div>
+    <div class="loading-pct" id="lpct">0%</div>
+  </div>
+
+  <!-- S12: RESULTADO + OFERTA -->
+  <div class="screen" id="s12">
+    <div class="result-badge"><span>✦ Seu Resultado</span></div>
+    <h2 class="result-title"><span id="rname">Você</span>, seu perfil indica <em>ALTO potencial</em> para viajar melhor com milhas ✈️</h2>
+    <p class="pres-sub" style="margin-bottom:24px">Com base nas suas respostas, você está pronto(a) para transformar a forma como viaja — mesmo começando do zero.</p>
+    <div class="ba-wrap">
+      <div class="ba-col ba-before">
+        <span class="ba-label">Antes</span>
+        <div class="ba-item">❌ <span>Pagando caro em passagens</span></div>
+        <div class="ba-item">❌ <span>Econômica apertada</span></div>
+        <div class="ba-item">❌ <span>Sem entender milhas</span></div>
+        <div class="ba-item">❌ <span>Poucas viagens por ano</span></div>
+      </div>
+      <div class="ba-col ba-after">
+        <span class="ba-label">Depois</span>
+        <div class="ba-item">✅ <span>Emitindo com estratégia</span></div>
+        <div class="ba-item">✅ <span>Possibilidade de executiva</span></div>
+        <div class="ba-item">✅ <span>Dominando milhas</span></div>
+        <div class="ba-item">✅ <span>Viajando mais e melhor</span></div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="tag">Seu plano está pronto</div>
+    <h3 class="offer-title">O ecossistema completo para <em>você começar hoje</em></h3>
+    <div class="offer-list">
+      <div class="offer-item"><div class="offer-check">✦</div><div class="offer-text"><strong>Livro Digital</strong> — 20 capítulos com o Sistema M.A.P.A. do zero à emissão</div></div>
+      <div class="offer-item"><div class="offer-check">✦</div><div class="offer-text"><strong>Planejador Web 2026</strong> — calcula programa, milhas e custo exato por rota e mês</div></div>
+      <div class="offer-item"><div class="offer-check">✦</div><div class="offer-text"><strong>Planilha de Acúmulo</strong> — rastreia clube, cartão e bônus até você bater a meta</div></div>
+      <div class="offer-item"><div class="offer-check">✦</div><div class="offer-text"><strong>Calendário de janelas de bônus</strong> — nunca mais perca uma promoção de 80 a 120%</div></div>
+    </div>
+    <div class="price-box">
+      <div class="price-label2">Acesso completo por 12 meses</div>
+      <div class="price-val">R$ 197</div>
+      <div class="price-sub2"><s>Cursos concorrentes cobram R$ 397 a R$ 1.497</s><br>Sem renovação automática · Acesso imediato</div>
+    </div>
+    <div class="guarantee">
+      <div class="guarantee-icon">🛡️</div>
+      <div class="guarantee-text"><strong>Garantia total</strong> — teste o conteúdo completo. Se não for o que esperava, devolvemos seu investimento.</div>
+    </div>
+    <button class="btn" onclick="window.open('https://decifrandomilhas.com.br','_blank')">✈️ QUERO APRENDER A VIAJAR PAGANDO MENOS</button>
+    <p class="btn-note">acesso imediato após a confirmação</p>
+    <div class="divider"></div>
+    <div class="testi-wrap">
+      <div class="testi">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Nunca imaginei que conseguiria voar em executiva. Com o método aprendi passo a passo e hoje já tenho minha segunda emissão planejada."</div>
+        <div class="testi-author">— Fernanda M., Belo Horizonte</div>
+      </div>
+    </div>
+    <button class="btn" onclick="window.open('https://decifrandomilhas.com.br','_blank')" style="margin-top:8px">✈️ QUERO COMEÇAR AGORA →</button>
+    <p class="footer-note">decifrandomilhas.com.br · @decifrandominhasmilhas</p>
+  </div>
 
 </div>
-
 <script>
-// ── Stars
-const starsEl = document.getElementById('stars');
-for (let i = 0; i < 60; i++) {
-  const s = document.createElement('div');
-  s.className = 'star';
-  s.style.cssText = `
-    left:${Math.random()*100}%;
-    top:${Math.random()*100}%;
-    --d:${2+Math.random()*4}s;
-    --delay:-${Math.random()*4}s;
-    opacity:${0.2+Math.random()*0.5};
-  `;
-  starsEl.appendChild(s);
+// Stars
+const se = document.getElementById('stars');
+for(let i=0;i<55;i++){
+  const s=document.createElement('div'); s.className='star';
+  s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*4}s;--delay:-${Math.random()*4}s;`;
+  se.appendChild(s);
 }
 
-// ── Quiz Data
-const questions = [
-  {
-    text: 'Como estão seus pontos <em>agora mesmo?</em>',
-    options: [
-      { letter:'A', text:'Tenho pontos acumulando mas nunca fiz nenhuma transferência', profile:'nunca-transferiu' },
-      { letter:'B', text:'Já transferi algumas vezes, mas sempre fora de promoção ou sem estratégia', profile:'viajante-economica' },
-      { letter:'C', text:'Recebi aviso de expiração e preciso agir nos próximos dias', profile:'expirando' },
-      { letter:'D', text:'Tenho uma viagem planejada e quero usar os pontos para essa meta específica', profile:'lua-de-mel' },
-    ]
-  },
-  {
-    text: 'Quanto você gasta <em>por mês no cartão</em> de crédito?',
-    options: [
-      { letter:'A', text:'Até R$ 2.000 — gastos do dia a dia', profile:'nunca-transferiu' },
-      { letter:'B', text:'Entre R$ 2.000 e R$ 5.000', profile:'viajante-economica' },
-      { letter:'C', text:'Entre R$ 5.000 e R$ 10.000', profile:'lua-de-mel' },
-      { letter:'D', text:'Acima de R$ 10.000 — tenho PJ ou gastos empresariais', profile:'pj' },
-    ]
-  },
-  {
-    text: 'Qual dessas frases <em>mais representa</em> você hoje?',
-    options: [
-      { letter:'A', text:'"Tenho pontos no Livelo e no Smiles mas nunca sei qual vale mais transferir"', profile:'nunca-transferiu' },
-      { letter:'B', text:'"Já voei em econômica com milhas, mas executiva parece fora do alcance"', profile:'viajante-economica' },
-      { letter:'C', text:'"Meus pontos estão expirando e não sei para onde transferir agora"', profile:'expirando' },
-      { letter:'D', text:'"Tenho uma meta clara — quero emitir executiva para uma viagem específica"', profile:'lua-de-mel' },
-    ]
-  },
-  {
-    text: 'O que mais <em>te trava</em> quando pensa em emitir?',
-    options: [
-      { letter:'A', text:'Não sei nem por onde começar — programas, transferências, tudo confuso', profile:'nunca-transferiu' },
-      { letter:'B', text:'Assisto muitos vídeos mas na hora de agir bate a dúvida e fico parado', profile:'viajante-economica' },
-      { letter:'C', text:'Medo de transferir errado e perder os pontos sem garantia de vaga', profile:'expirando' },
-      { letter:'D', text:'Não sei se vou acumular pontos suficientes a tempo da viagem', profile:'lua-de-mel' },
-    ]
-  },
-  {
-    text: 'Qual é o seu <em>sonho de voo</em>?',
-    options: [
-      { letter:'A', text:'Qualquer destino internacional em executiva — só quero a primeira vez', profile:'nunca-transferiu' },
-      { letter:'B', text:'Europa — Paris, Lisboa ou Roma — dormindo numa cama flat', profile:'viajante-economica' },
-      { letter:'C', text:'Usar os pontos que já tenho antes que expirem — destino é secundário', profile:'expirando' },
-      { letter:'D', text:'Uma viagem especial — lua de mel, aniversário, viagem dos sonhos com a família', profile:'lua-de-mel' },
-    ]
-  },
-];
+let userName='';
+const qScreens=[1,2,4,6,7,8,9,10];
+const total=8;
 
-// ── Profiles
-const profiles = {
-  'nunca-transferiu': {
-    label: 'Perfil 01 — O Acumulador Passivo',
-    title: 'Você tem a <em>matéria-prima.</em> Falta o sistema.',
-    desc: `Seus pontos estão lá, acumulando silenciosamente. O problema não é quantidade — é que você ainda não montou a cadeia <strong>acúmulo → transferência → emissão</strong>.<br><br>
-    A boa notícia: 92% dos pontos no Brasil vêm do cartão de crédito, não de voos. Isso significa que você já está fabricando a matéria-prima da executiva todos os dias — no iFood, no abastecimento, no supermercado.<br><br>
-    O que falta é o <strong>Sistema M.A.P.A.</strong>: saber qual programa usar para a sua rota, quando transferir para pegar o bônus certo, e quanto vai custar antes de mover um único ponto.`,
-    cta: 'Quero Ativar Meus Pontos Agora',
-    ctaSub: 'O Planejador Web 2026 calcula programa + milhas + custo exato para a sua rota — antes de você transferir qualquer ponto.'
-  },
-  'viajante-economica': {
-    label: 'Perfil 02 — O Viajante Preso na Econômica',
-    title: 'Você <em>quase chegou</em> lá. O salto é menor do que parece.',
-    desc: `Você já entende milhas para econômica. Mas executiva parece outro mundo — e não é. <strong>A diferença está em dois detalhes:</strong> usar tabela fixa (como Iberia Plus com 42.500 Avios por trecho) e pegar as janelas de bônus de 80 a 120% para chegar ao saldo necessário.<br><br>
-    O erro mais comum do seu perfil: transferir fora de promoção e perder até 50% do potencial. As janelas aparecem em Janeiro, Março, Setembro e Black Friday. <strong>Quem conhece o calendário multiplica o saldo sem gastar mais nada.</strong>`,
-    cta: 'Quero Fazer o Upgrade para Executiva',
-    ctaSub: 'O Decifrando Milhas 2026 tem o calendário completo de janelas de bônus e o Planejador Web que calcula a rota certa para o upgrade.'
-  },
-  'expirando': {
-    label: 'Perfil 03 — Urgência Real',
-    title: 'Você tem <em>dias,</em> não semanas.',
-    desc: `Aviso de expiração chegou. Esse é o estado emocional mais perigoso do nicho: desespero + pressa = decisão errada. <strong>A pior coisa que você pode fazer agora é transferir sem estratégia.</strong><br><br>
-    A boa notícia: existem destinos com tabela fixa que valem muito com poucos pontos. Iberia Plus, AAdvantage e ConnectMiles têm rotas excelentes com saldos menores. <strong>O Seats.aero confirma a vaga antes de você mover qualquer ponto.</strong><br><br>
-    Você precisa de um plano agora — não de mais conteúdo.`,
-    cta: 'Preciso de um Plano Agora',
-    ctaSub: 'O Planejador Web 2026 te diz exatamente para onde transferir com os pontos que você tem — sem risco de perder tudo.'
-  },
-  'lua-de-mel': {
-    label: 'Perfil 04 — O Estrategista com Meta',
-    title: 'Você tem o <em>destino.</em> Falta o caminho exato.',
-    desc: `Você é o perfil mais pronto do quiz. Tem motivação, tem horizonte de tempo, tem meta emocional clara. O que falta é a <strong>cadeia exata:</strong> quanto precisa acumular, qual cartão usar por categoria, em qual janela de bônus transferir e qual programa emitir.<br><br>
-    Com 8 a 11 meses de antecedência e o sistema certo, <strong>praticamente qualquer destino em executiva fica viável</strong> — incluindo Qatar Qsuites, Emirates e Swiss.`,
-    cta: 'Quero Montar Meu Plano de Emissão',
-    ctaSub: 'A Planilha de Acúmulo calcula em quantos meses você chega ao saldo necessário com seus gastos atuais. Sem chute — com projeção real.'
-  },
-  'pj': {
-    label: 'Perfil 05 — O PJ Desperdiçando Ouro',
-    title: 'Você está <em>fabricando</em> executiva todo mês sem saber.',
-    desc: `Com gastos acima de R$ 10.000 mensais no cartão, você está acumulando pontos muito acima da média brasileira. O problema: <strong>sem estratégia de conversão, esse acúmulo extraordinário vira desperdício ordinário.</strong><br><br>
-    Uma única emissão de executiva para a Europa pode custar R$ 2.200 em taxas — o equivalente a menos de um mês de acúmulo no seu ritmo. O sistema certo transforma cada despesa empresarial em milhas estratégicas.`,
-    cta: 'Quero Converter Meus Gastos em Executiva',
-    ctaSub: 'O Decifrando Milhas 2026 tem o mapa completo de cartões por categoria e o Planejador Web que calcula a emissão perfeita para o seu saldo.'
+function goTo(i){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('s'+i).classList.add('active');
+  const pw=document.getElementById('prog-wrap');
+  const hide=[0,3,5,11,12];
+  if(hide.includes(i)){pw.style.display='none';}
+  else{
+    pw.style.display='block';
+    const qi=qScreens.indexOf(i)+1;
+    const pct=Math.round((qi/total)*100);
+    document.getElementById('prog-label').textContent=`Pergunta ${qi} de ${total}`;
+    document.getElementById('prog-pct').textContent=pct+'%';
+    document.getElementById('prog-fill').style.width=pct+'%';
   }
-};
-
-// ── State
-let answers = [];
-let currentQ = 0;
-
-function startQuiz() {
-  showScreen('screen-question');
-  renderQuestion(0);
+  if(userName){
+    const q6=document.getElementById('q6');
+    if(q6) q6.innerHTML=`<span style="color:var(--gold)">${userName}</span>, com qual <em>frequência</em> você viaja?`;
+    const q10=document.getElementById('q10');
+    if(q10) q10.innerHTML=`<span style="color:var(--gold)">${userName}</span>, qual seu <em>nível de comprometimento</em> para aprender isso?`;
+  }
+  if(i===11) startLoading();
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+function pick(el,next){
+  el.closest('.options').querySelectorAll('.opt').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  setTimeout(()=>goTo(next),320);
 }
 
-function renderQuestion(index) {
-  currentQ = index;
-  const q = questions[index];
-  const pct = Math.round(((index + 1) / questions.length) * 100);
-
-  document.getElementById('q-current').textContent = index + 1;
-  document.getElementById('q-frac').textContent = pct + '%';
-  document.getElementById('progress-fill').style.width = pct + '%';
-
-  const wrap = document.getElementById('question-wrap');
-  wrap.style.animation = 'none';
-  wrap.offsetHeight; // reflow
-  wrap.style.animation = 'fadeUp 0.4s ease both';
-
-  wrap.innerHTML = `
-    <div class="q-number">Pergunta ${index + 1} de ${questions.length}</div>
-    <div class="q-text">${q.text}</div>
-    <div class="options">
-      ${q.options.map((opt, i) => `
-        <button class="option" onclick="selectOption(${i}, '${opt.profile}')">
-          <div class="option-letter">${opt.letter}</div>
-          <div class="option-text">${opt.text}</div>
-        </button>
-      `).join('')}
-    </div>
-  `;
+function multi(el,btnId){
+  el.classList.toggle('selected');
+  const any=el.closest('.options').querySelectorAll('.opt.selected').length>0;
+  document.getElementById(btnId).classList.toggle('show',any);
 }
 
-function selectOption(optIndex, profile) {
-  // Highlight selected
-  document.querySelectorAll('.option').forEach((el, i) => {
-    el.classList.toggle('selected', i === optIndex);
-  });
+function submitLead(){
+  const n=document.getElementById('inp-name').value.trim();
+  const e=document.getElementById('inp-email').value.trim();
+  if(!n){document.getElementById('inp-name').focus();return;}
+  if(!e||!e.includes('@')){document.getElementById('inp-email').focus();return;}
+  userName=n;
+  document.getElementById('rname').textContent=n;
+  goTo(6);
+}
 
-  answers.push(profile);
-
-  setTimeout(() => {
-    if (currentQ < questions.length - 1) {
-      renderQuestion(currentQ + 1);
-    } else {
-      showResult();
+function startLoading(){
+  const fill=document.getElementById('lfill');
+  const pct=document.getElementById('lpct');
+  let p=0;
+  const iv=setInterval(()=>{
+    p+=Math.random()*15+6;
+    if(p>=100){
+      p=100; clearInterval(iv);
+      setTimeout(()=>goTo(12),500);
     }
-  }, 380);
-}
-
-function showResult() {
-  // Count most frequent profile
-  const counts = {};
-  answers.forEach(p => counts[p] = (counts[p] || 0) + 1);
-  const topProfile = Object.entries(counts).sort((a,b) => b[1]-a[1])[0][0];
-  const p = profiles[topProfile];
-
-  const resultEl = document.getElementById('screen-result');
-  resultEl.innerHTML = `
-    <div class="result-wrap">
-      <div class="result-badge">
-        <span>✦ Seu Resultado</span>
-      </div>
-
-      <div class="result-profile">${p.label}</div>
-      <h2 class="result-title">${p.title}</h2>
-      <p class="result-desc">${p.desc}</p>
-
-      <div class="result-divider"></div>
-
-      <div class="result-cta-label">O próximo passo</div>
-      <h3 class="result-cta-headline">O ecossistema completo para o seu perfil</h3>
-      <p class="result-cta-sub">${p.ctaSub}</p>
-
-      <div class="result-pillars">
-        <div class="result-pillar">
-          <span class="result-pillar-icon">📖</span>
-          <div class="result-pillar-name">Livro Digital</div>
-          <div class="result-pillar-desc">20 capítulos com o Sistema M.A.P.A.</div>
-        </div>
-        <div class="result-pillar">
-          <span class="result-pillar-icon">🗺️</span>
-          <div class="result-pillar-name">Planejador Web</div>
-          <div class="result-pillar-desc">Rota → programa → custo exato</div>
-        </div>
-        <div class="result-pillar">
-          <span class="result-pillar-icon">📊</span>
-          <div class="result-pillar-name">Planilha</div>
-          <div class="result-pillar-desc">Rastreia até bater a meta</div>
-        </div>
-      </div>
-
-      <button class="btn-cta" onclick="window.open('https://decifrandomilhas.com.br', '_blank')">${p.cta} →</button>
-      <button class="btn-retry" onclick="resetQuiz()">↺ Refazer o quiz</button>
-
-      <p class="result-price">Acesso completo por <strong>R$ 197</strong> · 12 meses · Sem renovação automática</p>
-    </div>
-  `;
-
-  showScreen('screen-result');
-}
-
-function resetQuiz() {
-  answers = [];
-  currentQ = 0;
-  showScreen('screen-intro');
+    fill.style.width=p+'%';
+    pct.textContent=Math.floor(p)+'%';
+  },200);
 }
 </script>
 </body>
