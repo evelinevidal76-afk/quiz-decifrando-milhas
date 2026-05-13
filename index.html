@@ -173,7 +173,7 @@
     padding:6px 16px; margin-bottom:20px; border-radius:2px;
   }
   .result-badge span { font-family:'DM Mono',monospace; font-size:0.62rem; letter-spacing:2px; color:var(--gold); text-transform:uppercase; }
-  .result-title { font-family:'Playfair Display',serif; font-size:clamp(1.5rem,4vw,2rem); line-height:1.2; text-align:center; margin-bottom:16px; }
+  .result-title { font-family:'Playfair Display',serif; font-size:clamp(1.6rem,4vw,2.2rem); line-height:1.2; text-align:center; margin-bottom:16px; }
   .result-title em { color:var(--gold); font-style:italic; }
   .ba-wrap { display:grid; grid-template-columns:1fr 1fr; gap:12px; width:100%; margin-bottom:28px; }
   .ba-col { padding:18px 14px; border-radius:2px; }
@@ -186,22 +186,28 @@
   .ba-before .ba-item { color:rgba(255,255,255,0.45); }
   .ba-after .ba-item { color:rgba(255,255,255,0.85); }
   .divider { width:100%; height:1px; background:rgba(201,168,76,0.15); margin:28px 0; }
-  .offer-title { font-family:'Playfair Display',serif; font-size:1.4rem; text-align:center; margin-bottom:16px; }
+  .offer-title { font-family:'Playfair Display',serif; font-size:1.6rem; text-align:center; margin-bottom:20px; }
   .offer-title em { color:var(--gold); font-style:italic; }
   .offer-list { width:100%; display:flex; flex-direction:column; gap:10px; margin-bottom:24px; }
   .offer-item {
-    display:flex; align-items:flex-start; gap:12px;
-    background:rgba(255,255,255,0.02); border:1px solid rgba(201,168,76,0.1);
-    padding:14px 16px; border-radius:2px;
+    display:flex; align-items:flex-start; gap:14px;
+    background:rgba(255,255,255,0.05); border:1px solid rgba(201,168,76,0.2);
+    padding:18px 18px; border-radius:2px;
   }
-  .offer-check { color:var(--gold); font-size:1rem; flex-shrink:0; margin-top:1px; }
-  .offer-text { font-size:0.88rem; color:rgba(255,255,255,0.75); line-height:1.4; }
-  .offer-text strong { color:var(--white); }
+  .offer-check { color:var(--gold); font-size:1.2rem; flex-shrink:0; margin-top:2px; }
+  .offer-text { font-size:1rem; color:rgba(255,255,255,0.92); line-height:1.5; }
+  .offer-text strong { color:var(--white); font-size:1.05rem; }
   .price-box {
     text-align:center; width:100%;
     background:rgba(201,168,76,0.06); border:1px solid rgba(201,168,76,0.2);
     padding:24px; border-radius:2px; margin-bottom:16px;
   }
+  .offer-highlight {
+    background:rgba(201,168,76,0.1) !important;
+    border:1px solid rgba(201,168,76,0.4) !important;
+  }
+  .offer-highlight .offer-text strong { color:var(--gold-light) !important; }
+  .offer-highlight .offer-check { color:var(--gold-light) !important; }
   .price-label2 { font-family:'DM Mono',monospace; font-size:0.62rem; letter-spacing:2px; color:var(--gold); text-transform:uppercase; margin-bottom:8px; }
   .price-val { font-family:'Playfair Display',serif; font-size:3rem; color:var(--white); font-weight:900; margin-bottom:4px; }
   .price-sub2 { font-size:0.8rem; color:rgba(255,255,255,0.4); line-height:1.5; }
@@ -295,16 +301,16 @@
     <button class="btn" onclick="goTo(4)">CONTINUAR →</button>
   </div>
 
-  <!-- S4: DIFICULDADE -->
+  {MARK_S4}
   <div class="screen" id="s4">
     <div class="q-step">Pergunta 3 de 8</div>
     <div class="q-text">Qual sua <em>maior dificuldade</em> hoje com viagens?</div>
     <div class="options">
-      <button class="opt" onclick="pick(this,5)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">As passagens estão caras demais</div></button>
-      <button class="opt" onclick="pick(this,5)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Não entendo nada sobre milhas</div></button>
-      <button class="opt" onclick="pick(this,5)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Acho complicado acumular pontos</div></button>
-      <button class="opt" onclick="pick(this,5)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Sempre acho que executiva é impossível para mim</div></button>
-      <button class="opt" onclick="pick(this,5)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Nunca consigo aproveitar as promoções</div></button>
+      <button class="opt" onclick="pick(this,6)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">As passagens estão caras demais</div></button>
+      <button class="opt" onclick="pick(this,6)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Não entendo nada sobre milhas</div></button>
+      <button class="opt" onclick="pick(this,6)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Acho complicado acumular pontos</div></button>
+      <button class="opt" onclick="pick(this,6)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Sempre acho que executiva é impossível para mim</div></button>
+      <button class="opt" onclick="pick(this,6)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Nunca consigo aproveitar as promoções</div></button>
     </div>
   </div>
 
@@ -379,10 +385,10 @@
     <div class="q-step">Pergunta 8 de 8</div>
     <div class="q-text" id="q10">Qual seu <em>nível de comprometimento</em> para aprender isso?</div>
     <div class="options">
-      <button class="opt" onclick="pick(this,11)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Estou muito decidido(a) — quero começar já</div></button>
-      <button class="opt" onclick="pick(this,11)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Quero começar o quanto antes</div></button>
-      <button class="opt" onclick="pick(this,11)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Tenho medo de não conseguir sozinho(a)</div></button>
-      <button class="opt" onclick="pick(this,11)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Quero entender melhor antes de decidir</div></button>
+      <button class="opt" onclick="pick(this,5)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Estou muito decidido(a) — quero começar já</div></button>
+      <button class="opt" onclick="pick(this,5)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Quero começar o quanto antes</div></button>
+      <button class="opt" onclick="pick(this,5)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Tenho medo de não conseguir sozinho(a)</div></button>
+      <button class="opt" onclick="pick(this,5)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Quero entender melhor antes de decidir</div></button>
     </div>
   </div>
 
@@ -424,6 +430,7 @@
       <div class="offer-item"><div class="offer-check">✦</div><div class="offer-text"><strong>Planejador Web 2026</strong> — calcula programa, milhas e custo exato por rota e mês</div></div>
       <div class="offer-item"><div class="offer-check">✦</div><div class="offer-text"><strong>Planilha de Acúmulo</strong> — rastreia clube, cartão e bônus até você bater a meta</div></div>
       <div class="offer-item"><div class="offer-check">✦</div><div class="offer-text"><strong>Calendário de janelas de bônus</strong> — nunca mais perca uma promoção de 80 a 120%</div></div>
+      <div class="offer-item offer-highlight"><div class="offer-check">✦</div><div class="offer-text"><strong>Monitor de Avisos</strong> — alertas diários com as melhores promoções de transferência e emissão, direto para você</div></div>
     </div>
     <div class="price-box">
       <div class="price-label2">Acesso completo por 12 meses</div>
@@ -434,7 +441,7 @@
       <div class="guarantee-icon">🛡️</div>
       <div class="guarantee-text"><strong>Garantia total</strong> — teste o conteúdo completo. Se não for o que esperava, devolvemos seu investimento.</div>
     </div>
-    <button class="btn" onclick="window.open('https://decifrandomilhas.com.br','_blank')">✈️ QUERO APRENDER A VIAJAR PAGANDO MENOS</button>
+    <button class="btn" onclick="window.open('https://pay.hotmart.com/E105455935C','_blank')">✈️ QUERO APRENDER A VIAJAR PAGANDO MENOS</button>
     <p class="btn-note">acesso imediato após a confirmação</p>
     <div class="divider"></div>
     <div class="testi-wrap">
@@ -444,7 +451,7 @@
         <div class="testi-author">— Fernanda M., Belo Horizonte</div>
       </div>
     </div>
-    <button class="btn" onclick="window.open('https://decifrandomilhas.com.br','_blank')" style="margin-top:8px">✈️ QUERO COMEÇAR AGORA →</button>
+    <button class="btn" onclick="window.open('https://pay.hotmart.com/E105455935C','_blank')" style="margin-top:8px">✈️ QUERO COMEÇAR AGORA →</button>
     <p class="footer-note">decifrandomilhas.com.br · @decifrandominhasmilhas</p>
   </div>
 
@@ -505,7 +512,7 @@ function submitLead(){
   if(!e||!e.includes('@')){document.getElementById('inp-email').focus();return;}
   userName=n;
   document.getElementById('rname').textContent=n;
-  goTo(6);
+  goTo(11);
 }
 
 function startLoading(){
