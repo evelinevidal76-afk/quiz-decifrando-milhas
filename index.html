@@ -155,11 +155,6 @@
   .field-input:focus { border-color:var(--gold); }
   .field-input::placeholder { color:rgba(255,255,255,0.25); }
   .form-wrap { width:100%; display:flex; flex-direction:column; gap:14px; margin-bottom:24px; }
-  .testi-wrap { display:flex; flex-direction:column; gap:14px; width:100%; margin-bottom:32px; }
-  .testi { background:rgba(255,255,255,0.03); border-left:3px solid var(--gold); padding:20px; }
-  .testi-stars { color:var(--gold); font-size:0.8rem; margin-bottom:8px; }
-  .testi-text { font-size:0.88rem; color:rgba(255,255,255,0.7); line-height:1.65; font-style:italic; margin-bottom:10px; }
-  .testi-author { font-family:'DM Mono',monospace; font-size:0.62rem; color:var(--gold); letter-spacing:1px; }
   .loading-icon { font-size:3rem; margin-bottom:20px; animation:fly 1.5s ease-in-out infinite alternate; }
   @keyframes fly { from{transform:translateY(0) rotate(-5deg)} to{transform:translateY(-12px) rotate(5deg)} }
   .loading-title { font-family:'Playfair Display',serif; font-size:1.6rem; text-align:center; margin-bottom:10px; }
@@ -167,6 +162,8 @@
   .loading-bg { width:100%; height:6px; background:rgba(255,255,255,0.07); border-radius:3px; overflow:hidden; margin-bottom:12px; }
   .loading-fill { height:100%; background:linear-gradient(to right,var(--gold),var(--gold-light)); border-radius:3px; width:0%; transition:width 0.3s ease; }
   .loading-pct { font-family:'DM Mono',monospace; font-size:0.7rem; color:var(--gold); text-align:center; }
+
+  /* RESULTADO */
   .result-badge {
     display:inline-flex; align-items:center; gap:8px;
     background:rgba(201,168,76,0.12); border:1px solid rgba(201,168,76,0.25);
@@ -175,6 +172,12 @@
   .result-badge span { font-family:'DM Mono',monospace; font-size:0.62rem; letter-spacing:2px; color:var(--gold); text-transform:uppercase; }
   .result-title { font-family:'Playfair Display',serif; font-size:clamp(1.6rem,4vw,2.2rem); line-height:1.2; text-align:center; margin-bottom:16px; }
   .result-title em { color:var(--gold); font-style:italic; }
+  .result-insight {
+    width:100%; background:rgba(201,168,76,0.07); border:1px solid rgba(201,168,76,0.2);
+    border-left:3px solid var(--gold); padding:18px 20px; border-radius:2px;
+    margin-bottom:24px; font-size:0.92rem; color:rgba(255,255,255,0.8); line-height:1.7;
+  }
+  .result-insight strong { color:var(--white); }
   .ba-wrap { display:grid; grid-template-columns:1fr 1fr; gap:12px; width:100%; margin-bottom:28px; }
   .ba-col { padding:18px 14px; border-radius:2px; }
   .ba-before { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); }
@@ -220,6 +223,12 @@
   .guarantee-icon { font-size:1.4rem; flex-shrink:0; }
   .guarantee-text { font-size:0.82rem; color:rgba(255,255,255,0.65); line-height:1.5; }
   .guarantee-text strong { color:#2ecc71; }
+  .bridge-box {
+    width:100%; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08);
+    padding:20px; border-radius:2px; margin-bottom:20px; text-align:center;
+  }
+  .bridge-box p { font-size:0.95rem; color:rgba(255,255,255,0.7); line-height:1.7; }
+  .bridge-box strong { color:var(--white); }
   .footer-note { margin-top:20px; text-align:center; font-family:'DM Mono',monospace; font-size:0.58rem; letter-spacing:1.5px; color:rgba(255,255,255,0.2); text-transform:uppercase; }
   @media(max-width:420px) { .ba-wrap{grid-template-columns:1fr} }
 </style>
@@ -286,51 +295,32 @@
     </div>
   </div>
 
-  <!-- S2: JÁ USOU MILHAS -->
+  <!-- S2: JÁ USOU MILHAS — PERGUNTA QUE DEFINE O PERFIL -->
   <div class="screen" id="s2">
     <div class="q-step">Pergunta 2 de 8</div>
     <div class="q-text">Você já <em>utilizou milhas</em> alguma vez?</div>
     <div class="options">
-      <button class="opt" onclick="pick(this,3)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Nunca usei</div></button>
-      <button class="opt" onclick="pick(this,3)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Já ouvi falar, mas não entendo</div></button>
-      <button class="opt" onclick="pick(this,3)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Já usei poucas vezes</div></button>
-      <button class="opt" onclick="pick(this,3)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Uso com frequência</div></button>
+      <button class="opt" onclick="pickProfile(this,'iniciante',3)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Nunca usei</div></button>
+      <button class="opt" onclick="pickProfile(this,'iniciante',3)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Já ouvi falar, mas não entendo</div></button>
+      <button class="opt" onclick="pickProfile(this,'intermediario',3)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Já usei poucas vezes</div></button>
+      <button class="opt" onclick="pickProfile(this,'avancado',3)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Uso com frequência</div></button>
     </div>
   </div>
 
-  <!-- S3: PROVA SOCIAL -->
+  <!-- S3: MAIOR DIFICULDADE -->
   <div class="screen" id="s3">
-    <div style="font-size:2.5rem;margin-bottom:16px">🌍</div>
-    <div class="tag">Você não está sozinho</div>
-    <h2 class="pres-title">Pessoas comuns já estão <em>voando melhor</em> com milhas</h2>
-    <p class="pres-sub">Brasileiros comuns aprendem todos os dias como emitir passagens pagando muito menos — e descobrem que <strong>executiva não é só para quem tem muito dinheiro.</strong></p>
-    <div class="testi-wrap">
-      <div class="testi">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-text">"Eu achava que executiva era só para milionários. Depois que aprendi sobre milhas, consegui emitir minha primeira passagem pagando muito menos."</div>
-        <div class="testi-author">— Mariana S., São Paulo</div>
-      </div>
-      <div class="testi">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-text">"Comecei do zero e hoje consigo economizar em praticamente toda viagem. Já voei em executiva para a Europa pagando só as taxas."</div>
-        <div class="testi-author">— Roberto C., Rio de Janeiro</div>
-      </div>
-    </div>
-    <button class="btn" onclick="goTo(4)">CONTINUAR →</button>
-  </div>
-
-  
-  <div class="screen" id="s4">
     <div class="q-step">Pergunta 3 de 8</div>
     <div class="q-text">Qual sua <em>maior dificuldade</em> hoje com viagens?</div>
     <div class="options">
-      <button class="opt" onclick="pick(this,6)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">As passagens estão caras demais</div></button>
-      <button class="opt" onclick="pick(this,6)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Não entendo nada sobre milhas</div></button>
-      <button class="opt" onclick="pick(this,6)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Acho complicado acumular pontos</div></button>
-      <button class="opt" onclick="pick(this,6)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Sempre acho que executiva é impossível para mim</div></button>
-      <button class="opt" onclick="pick(this,6)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Nunca consigo aproveitar as promoções</div></button>
+      <button class="opt" onclick="pick(this,5)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">As passagens estão caras demais</div></button>
+      <button class="opt" onclick="pick(this,5)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Não entendo nada sobre milhas</div></button>
+      <button class="opt" onclick="pick(this,5)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Acho complicado acumular pontos</div></button>
+      <button class="opt" onclick="pick(this,5)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Sempre acho que executiva é impossível para mim</div></button>
+      <button class="opt" onclick="pick(this,5)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Nunca consigo aproveitar as promoções</div></button>
     </div>
   </div>
+
+  <!-- S4: removida — fluxo vai direto de s3 → s5 -->
 
   <!-- S5: CAPTURA -->
   <div class="screen" id="s5">
@@ -398,15 +388,15 @@
     </div>
   </div>
 
-  <!-- S10: COMPROMETIMENTO -->
+  <!-- S10: COMPROMETIMENTO — SEGUNDA PERGUNTA QUE AFINA O PERFIL -->
   <div class="screen" id="s10">
     <div class="q-step">Pergunta 8 de 8</div>
     <div class="q-text" id="q10">Qual seu <em>nível de comprometimento</em> para aprender isso?</div>
     <div class="options">
-      <button class="opt" onclick="pick(this,5)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Estou muito decidido(a) — quero começar já</div></button>
-      <button class="opt" onclick="pick(this,5)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Quero começar o quanto antes</div></button>
-      <button class="opt" onclick="pick(this,5)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Tenho medo de não conseguir sozinho(a)</div></button>
-      <button class="opt" onclick="pick(this,5)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Quero entender melhor antes de decidir</div></button>
+      <button class="opt" onclick="pickCommit(this,'alto',11)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Estou muito decidido(a) — quero começar já</div></button>
+      <button class="opt" onclick="pickCommit(this,'alto',11)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Quero começar o quanto antes</div></button>
+      <button class="opt" onclick="pickCommit(this,'medio',11)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Tenho medo de não conseguir sozinho(a)</div></button>
+      <button class="opt" onclick="pickCommit(this,'medio',11)"><div class="opt-dot"><div class="opt-inner"></div></div><div class="opt-text">Quero entender melhor antes de decidir</div></button>
     </div>
   </div>
 
@@ -414,33 +404,44 @@
   <div class="screen" id="s11">
     <div class="loading-icon">✈️</div>
     <h2 class="loading-title">Analisando seu perfil...</h2>
-    <p class="loading-sub">Estamos preparando seu plano personalizado para viajar pagando menos.</p>
+    <p class="loading-sub">Estamos preparando seu diagnóstico personalizado.</p>
     <div class="loading-bg"><div class="loading-fill" id="lfill"></div></div>
     <div class="loading-pct" id="lpct">0%</div>
   </div>
 
   <!-- S12: RESULTADO + OFERTA -->
   <div class="screen" id="s12">
-    <div class="result-badge"><span>✦ Seu Resultado</span></div>
-    <h2 class="result-title"><span id="rname">Você</span>, seu perfil indica <em>ALTO potencial</em> para viajar melhor com milhas ✈️</h2>
-    <p class="pres-sub" style="margin-bottom:24px">Com base nas suas respostas, você está pronto(a) para transformar a forma como viaja — mesmo começando do zero.</p>
+    <div class="result-badge"><span id="result-badge-text">✦ Seu Resultado</span></div>
+    <h2 class="result-title" id="result-title">Você tem <em>alto potencial</em> para viajar de executiva com milhas ✈️</h2>
+    <p class="pres-sub" id="result-sub" style="margin-bottom:16px"></p>
+
+    <!-- Insight personalizado por perfil -->
+    <div class="result-insight" id="result-insight"></div>
+
     <div class="ba-wrap">
       <div class="ba-col ba-before">
         <span class="ba-label">Antes</span>
-        <div class="ba-item">❌ <span>Pagando caro em passagens</span></div>
-        <div class="ba-item">❌ <span>Econômica apertada</span></div>
-        <div class="ba-item">❌ <span>Sem entender milhas</span></div>
-        <div class="ba-item">❌ <span>Poucas viagens por ano</span></div>
+        <div class="ba-item" id="before1">❌ <span></span></div>
+        <div class="ba-item" id="before2">❌ <span></span></div>
+        <div class="ba-item" id="before3">❌ <span></span></div>
+        <div class="ba-item" id="before4">❌ <span></span></div>
       </div>
       <div class="ba-col ba-after">
         <span class="ba-label">Depois</span>
-        <div class="ba-item">✅ <span>Emitindo com estratégia</span></div>
-        <div class="ba-item">✅ <span>Possibilidade de executiva</span></div>
-        <div class="ba-item">✅ <span>Dominando milhas</span></div>
-        <div class="ba-item">✅ <span>Viajando mais e melhor</span></div>
+        <div class="ba-item" id="after1">✅ <span></span></div>
+        <div class="ba-item" id="after2">✅ <span></span></div>
+        <div class="ba-item" id="after3">✅ <span></span></div>
+        <div class="ba-item" id="after4">✅ <span></span></div>
       </div>
     </div>
+
     <div class="divider"></div>
+
+    <!-- Frase de ponte -->
+    <div class="bridge-box" id="bridge-box">
+      <p id="bridge-text"></p>
+    </div>
+
     <div class="tag">Seu plano está pronto</div>
     <h3 class="offer-title">O ecossistema completo para <em>você começar hoje</em></h3>
     <div class="offer-list">
@@ -457,20 +458,11 @@
     </div>
     <div class="guarantee">
       <div class="guarantee-icon">🛡️</div>
-      <div class="guarantee-text"><strong>Garantia total</strong> — teste o conteúdo completo. Se não for o que esperava, devolvemos seu investimento.</div>
+      <div class="guarantee-text"><strong>Garantia de 7 dias, sem perguntas</strong> — acesse todo o conteúdo, teste as ferramentas. Se não for o que esperava, devolvemos 100% do seu investimento.</div>
     </div>
     <button class="btn" onclick="window.open('https://pay.hotmart.com/E105455935C','_blank')">✈️ QUERO APRENDER A VIAJAR PAGANDO MENOS</button>
     <p class="btn-note">acesso imediato após a confirmação</p>
-    <div class="divider"></div>
-    <div class="testi-wrap">
-      <div class="testi">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-text">"Nunca imaginei que conseguiria voar em executiva. Com o método aprendi passo a passo e hoje já tenho minha segunda emissão planejada."</div>
-        <div class="testi-author">— Fernanda M., Belo Horizonte</div>
-      </div>
-    </div>
-    <button class="btn" onclick="window.open('https://pay.hotmart.com/E105455935C','_blank')" style="margin-top:8px">✈️ QUERO COMEÇAR AGORA →</button>
-    <p class="footer-note">decifrandomilhas.com.br · @decifrandominhasmilhas</p>
+    <p class="footer-note" style="margin-top:28px">decifrandomilhas.com.br · @decifrandominhasmilhas</p>
   </div>
 
 </div>
@@ -483,20 +475,52 @@ for(let i=0;i<55;i++){
   se.appendChild(s);
 }
 
-let userName='';
-const qScreens=[1,2,4,6,7,8,9,10];
-const total=8;
+let userName = '';
+let userProfile = 'iniciante'; // iniciante | intermediario | avancado
+let userCommit = 'alto';       // alto | medio
+
+const qScreens = [1,2,3,6,7,8,9,10];
+const total = 8;
+
+// Conteúdo dos 3 perfis de resultado
+const profiles = {
+  iniciante: {
+    badge: '✦ Diagnóstico: Começando do Zero',
+    title: (n) => `${n}, você está no ponto de partida <em>certo</em> para voar de executiva com milhas ✈️`,
+    sub: 'A maioria das pessoas que hoje emitem executiva também começou sem saber nada. A diferença é que elas encontraram o sistema antes de perder tempo tentando sozinhas.',
+    insight: `Você ainda não usou milhas — e isso é <strong>vantagem</strong>, não desvantagem. Quem começa com o método certo não precisa desaprender erros. Você vai do zero direto para a estratégia que funciona.`,
+    before: ['Pontos acumulando sem virar nada','Confusão entre programas e bancos','Acha que executiva é só pra rico','Não sabe por onde começar'],
+    after: ['Sistema M.A.P.A. do zero à emissão','Sabe qual cartão usar em cada gasto','Executiva como meta concreta com data','Primeiro voo premium planejado']
+  },
+  intermediario: {
+    badge: '✦ Diagnóstico: Meio Caminho',
+    title: (n) => `${n}, você já sabe o básico — falta o <em>sistema para ir até a executiva</em> ✈️`,
+    sub: 'Você já deu os primeiros passos. Agora o que trava é a falta de estratégia para transformar pontos espalhados em um voo premium de verdade.',
+    insight: `Quem já usou milhas poucas vezes geralmente trava no mesmo ponto: <strong>sabe que dá pra viajar mais barato, mas não sabe montar a cadeia completa</strong> — acumulo → bônus de transferência → emissão na rota certa. É exatamente isso que o Decifrando Milhas resolve.`,
+    before: ['Pontos em vários programas sem plano','Perde janelas de bônus de 80 a 120%','Transfere fora de promoção e perde valor','Nunca chegou à executiva com milhas'],
+    after: ['Cadeia completa de acúmulo a emissão','Calendário de bônus para nunca perder','Transferências estratégicas no momento certo','Executiva planejada com rota e data definidas']
+  },
+  avancado: {
+    badge: '✦ Diagnóstico: Hora de Otimizar',
+    title: (n) => `${n}, você já joga — mas ainda deixa <em>valor na mesa</em> toda vez que viaja ✈️`,
+    sub: 'Quem usa milhas com frequência geralmente domina o básico, mas perde nas triangulações avançadas, nos bônus sazonais e na escolha do programa certo por rota.',
+    insight: `Usar milhas com frequência não é o mesmo que usar com <strong>máxima eficiência</strong>. A diferença entre quem viaja de executiva pagando R$ 2.200 e quem paga R$ 5.000 está nas transferências bonificadas, nas tabelas fixas e nas rotas de triangulação. O Decifrando Milhas entrega exatamente essa camada estratégica.`,
+    before: ['Perde bônus de transferência sazonais','Não usa triangulações (Esfera→Iberia→Qatar)','Transfere sem confirmar vaga no Seats.aero','Paga mais por milha do que deveria'],
+    after: ['Bônus de até 120% capturados no timing certo','Triangulações que reduzem custo por milha em 60%','Emissão confirmada antes de transferir','Custo real abaixo de R$ 0,017 por milha']
+  }
+};
 
 function goTo(i){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('s'+i).classList.add('active');
-  const pw=document.getElementById('prog-wrap');
-  const hide=[0,3,5,11,12];
-  if(hide.includes(i)){pw.style.display='none';}
-  else{
+  const pw = document.getElementById('prog-wrap');
+  const hide = [0,5,11,12];
+  if(hide.includes(i)){
+    pw.style.display='none';
+  } else {
     pw.style.display='block';
-    const qi=qScreens.indexOf(i)+1;
-    const pct=Math.round((qi/total)*100);
+    const qi = qScreens.indexOf(i)+1;
+    const pct = Math.round((qi/total)*100);
     document.getElementById('prog-label').textContent=`Pergunta ${qi} de ${total}`;
     document.getElementById('prog-pct').textContent=pct+'%';
     document.getElementById('prog-fill').style.width=pct+'%';
@@ -508,7 +532,10 @@ function goTo(i){
     if(q10) q10.innerHTML=`<span style="color:var(--gold)">${userName}</span>, qual seu <em>nível de comprometimento</em> para aprender isso?`;
   }
   if(i===11) startLoading();
-  if(i===12 && typeof fbq !== 'undefined') fbq('track', 'ViewContent');
+  if(i===12){
+    buildResult();
+    if(typeof fbq !== 'undefined') fbq('track', 'ViewContent');
+  }
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
@@ -516,6 +543,16 @@ function pick(el,next){
   el.closest('.options').querySelectorAll('.opt').forEach(o=>o.classList.remove('selected'));
   el.classList.add('selected');
   setTimeout(()=>goTo(next),320);
+}
+
+function pickProfile(el,profile,next){
+  userProfile = profile;
+  pick(el,next);
+}
+
+function pickCommit(el,commit,next){
+  userCommit = commit;
+  pick(el,next);
 }
 
 function multi(el,btnId){
@@ -530,10 +567,40 @@ function submitLead(){
   if(!n){document.getElementById('inp-name').focus();return;}
   if(!e||!e.includes('@')){document.getElementById('inp-email').focus();return;}
   userName=n;
-  document.getElementById('rname').textContent=n;
-  // Meta Pixel - Lead capturado
   if(typeof fbq !== 'undefined') fbq('track', 'Lead');
-  goTo(11);
+  goTo(6);
+}
+
+function buildResult(){
+  // Define perfil final cruzando experiência + comprometimento
+  // Iniciante comprometido → perfil iniciante (mantem foco no começo)
+  // Iniciante hesitante → também iniciante mas com insight mais empático
+  // Intermediário → intermediario
+  // Avançado → avancado
+  const p = profiles[userProfile];
+
+  document.getElementById('result-badge-text').textContent = p.badge;
+  document.getElementById('result-title').innerHTML = p.title(userName || 'Você');
+  document.getElementById('result-sub').textContent = p.sub;
+  document.getElementById('result-insight').innerHTML = p.insight;
+
+  // Before/After
+  const bIds = ['before1','before2','before3','before4'];
+  const aIds = ['after1','after2','after3','after4'];
+  p.before.forEach((t,i)=>{ document.getElementById(bIds[i]).querySelector('span').textContent=t; });
+  p.after.forEach((t,i)=>{ document.getElementById(aIds[i]).querySelector('span').textContent=t; });
+
+  // Frase de ponte personalizada
+  const bridges = {
+    iniciante_alto: `<strong>${userName || 'Você'} está pronto(a) para começar.</strong> O Sistema M.A.P.A. foi construído exatamente para quem está no zero — em 20 capítulos você vai do conceito de milheiro até emitir sua primeira executiva com segurança.`,
+    iniciante_medio: `Não precisa saber tudo antes de começar. O Decifrando Milhas tem um caminho estruturado para você seguir no seu ritmo — e a garantia de 7 dias existe exatamente para isso: você testa sem risco.`,
+    intermediario_alto: `<strong>${userName || 'Você'} já sabe o suficiente para voar mais alto.</strong> O próximo passo não é mais conteúdo — é o sistema que conecta tudo que você já sabe e elimina os erros que ainda custam valor.`,
+    intermediario_medio: `A confusão que você sente não é falta de inteligência — é falta de sistema. O Decifrando Milhas é exatamente o atalho que organiza o que você já sabe e preenche o que falta.`,
+    avancado_alto: `Você já está no jogo. O que o Decifrando Milhas entrega é a camada que a maioria dos viajantes experientes ainda não domina: triangulações, bônus sazonais e emissão com custo por milha abaixo de R$ 0,017.`,
+    avancado_medio: `Mesmo quem já usa milhas com frequência tem gaps estratégicos que custam caro. O Decifrando Milhas foi construído para fechar exatamente esses gaps — sem enrolação, com números reais.`,
+  };
+  const bridgeKey = `${userProfile}_${userCommit}`;
+  document.getElementById('bridge-text').innerHTML = bridges[bridgeKey] || bridges[`${userProfile}_alto`];
 }
 
 function startLoading(){
