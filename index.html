@@ -223,6 +223,24 @@
   .footer-note { margin-top:20px; text-align:center; font-family:'DM Mono',monospace; font-size:0.58rem; letter-spacing:1.5px; color:rgba(255,255,255,0.2); text-transform:uppercase; }
   @media(max-width:420px) { .ba-wrap{grid-template-columns:1fr} }
 </style>
+
+  <!-- Meta Pixel -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '2019217792002248');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=2019217792002248&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel -->
 </head>
 <body>
 <div class="stars" id="stars"></div>
@@ -490,6 +508,7 @@ function goTo(i){
     if(q10) q10.innerHTML=`<span style="color:var(--gold)">${userName}</span>, qual seu <em>nível de comprometimento</em> para aprender isso?`;
   }
   if(i===11) startLoading();
+  if(i===12 && typeof fbq !== 'undefined') fbq('track', 'ViewContent');
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
@@ -512,6 +531,8 @@ function submitLead(){
   if(!e||!e.includes('@')){document.getElementById('inp-email').focus();return;}
   userName=n;
   document.getElementById('rname').textContent=n;
+  // Meta Pixel - Lead capturado
+  if(typeof fbq !== 'undefined') fbq('track', 'Lead');
   goTo(11);
 }
 
