@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz — Qual é o seu Perfil de Milhas? | Decifrando Milhas</title>
+<meta name="description" content="Descubra seu perfil de milhas e saiba exatamente o que falta para voar em executiva pagando até 90% menos.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0b1120;
+    --navy-mid: #131d30;
+    --navy-light: #1a2540;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-pale: #f5e9c8;
+    --white: #ffffff;
+    --smoke: #e8e4da;
+    --mid: #7a8299;
+  }
+
+- { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+font-family: ‘DM Sans’, sans-serif;
+background: var(–navy);
+color: var(–white);
+min-height: 100vh;
+overflow-x: hidden;
+}
+
+/* ── BACKGROUND STARS ── */
+.stars {
+position: fixed;
+inset: 0;
+pointer-events: none;
+z-index: 0;
+overflow: hidden;
+}
+.star {
+position: absolute;
+width: 2px; height: 2px;
+background: rgba(201,168,76,0.4);
+border-radius: 50%;
+animation: twinkle var(–d, 3s) ease-in-out infinite var(–delay, 0s);
+}
+@keyframes twinkle { 0%,100%{opacity:0.2} 50%{opacity:1} }
+
+/* ── GLOW ── */
+.glow-top {
+position: fixed;
+top: -200px; left: 50%;
+transform: translateX(-50%);
+width: 600px; height: 400px;
+background: radial-gradient(ellipse, rgba(201,168,76,0.08) 0%, transparent 70%);
+pointer-events: none;
+z-index: 0;
+}
+
+/* ── WRAPPER ── */
+.wrapper {
+position: relative;
+z-index: 1;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 0 20px 60px;
+}
+
+/* ── HEADER ── */
+.header {
+width: 100%;
+max-width: 680px;
+padding: 32px 0 0;
+display: flex;
+flex-direction: column;
+align-items: center;
+text-align: center;
+}
+.logo-mark {
+width: 56px; height: 56px;
+background: linear-gradient(135deg, var(–gold) 0%, #8a5e1a 100%);
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.5rem;
+margin-bottom: 10px;
+box-shadow: 0 0 30px rgba(201,168,76,0.3);
+}
+.logo-name {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.7rem;
+letter-spacing: 3px;
+color: var(–gold);
+text-transform: uppercase;
+margin-bottom: 48px;
+}
+
+/* ── INTRO SCREEN ── */
+.screen { display: none; width: 100%; max-width: 640px; }
+.screen.active { display: flex; flex-direction: column; align-items: center; }
+
+.intro-eyebrow {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.68rem;
+letter-spacing: 3px;
+color: var(–gold);
+text-transform: uppercase;
+margin-bottom: 20px;
+display: flex;
+align-items: center;
+gap: 10px;
+}
+.intro-eyebrow::before,
+.intro-eyebrow::after {
+content: ‘’;
+width: 30px; height: 1px;
+background: rgba(201,168,76,0.4);
+}
+
+.intro-title {
+font-family: ‘Playfair Display’, serif;
+font-size: clamp(2rem, 6vw, 3rem);
+line-height: 1.1;
+text-align: center;
+margin-bottom: 20px;
+}
+.intro-title em { color: var(–gold); font-style: italic; }
+
+.intro-sub {
+font-size: 1rem;
+color: rgba(255,255,255,0.6);
+text-align: center;
+line-height: 1.7;
+max-width: 480px;
+margin-bottom: 40px;
+font-weight: 300;
+}
+
+.intro-bullets {
+display: flex;
+flex-direction: column;
+gap: 12px;
+width: 100%;
+margin-bottom: 44px;
+}
+.bullet {
+display: flex;
+align-items: center;
+gap: 14px;
+background: rgba(255,255,255,0.03);
+border: 1px solid rgba(201,168,76,0.12);
+padding: 14px 18px;
+border-radius: 2px;
+}
+.bullet-icon {
+width: 32px; height: 32px;
+background: rgba(201,168,76,0.12);
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 0.9rem;
+flex-shrink: 0;
+}
+.bullet-text {
+font-size: 0.9rem;
+color: rgba(255,255,255,0.75);
+line-height: 1.4;
+}
+.bullet-text strong { color: var(–white); }
+
+.btn-start {
+background: linear-gradient(135deg, var(–gold) 0%, #a8771e 100%);
+color: var(–navy);
+border: none;
+padding: 18px 52px;
+font-family: ‘DM Sans’, sans-serif;
+font-weight: 700;
+font-size: 1rem;
+cursor: pointer;
+letter-spacing: 0.3px;
+border-radius: 2px;
+transition: transform 0.15s, box-shadow 0.15s;
+box-shadow: 0 4px 24px rgba(201,168,76,0.25);
+width: 100%;
+max-width: 360px;
+}
+.btn-start:hover {
+transform: translateY(-2px);
+box-shadow: 0 8px 32px rgba(201,168,76,0.35);
+}
+.btn-start:active { transform: translateY(0); }
+
+.intro-note {
+margin-top: 14px;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.65rem;
+letter-spacing: 1.5px;
+color: rgba(255,255,255,0.25);
+text-transform: uppercase;
+}
+
+/* ── PROGRESS ── */
+.progress-wrap {
+width: 100%;
+max-width: 640px;
+margin-bottom: 36px;
+}
+.progress-meta {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 10px;
+}
+.progress-label {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.65rem;
+letter-spacing: 2px;
+color: var(–gold);
+text-transform: uppercase;
+}
+.progress-frac {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.65rem;
+color: rgba(255,255,255,0.3);
+}
+.progress-bar-bg {
+height: 2px;
+background: rgba(255,255,255,0.08);
+width: 100%;
+}
+.progress-bar-fill {
+height: 100%;
+background: linear-gradient(to right, var(–gold), var(–gold-light));
+transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ── QUESTION SCREEN ── */
+.question-wrap {
+width: 100%;
+max-width: 640px;
+animation: fadeUp 0.4s ease both;
+}
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(16px); }
+to   { opacity: 1; transform: translateY(0); }
+}
+
+.q-number {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.65rem;
+letter-spacing: 3px;
+color: rgba(201,168,76,0.5);
+text-transform: uppercase;
+margin-bottom: 16px;
+}
+.q-text {
+font-family: ‘Playfair Display’, serif;
+font-size: clamp(1.4rem, 4vw, 1.9rem);
+line-height: 1.25;
+margin-bottom: 32px;
+color: var(–white);
+}
+.q-text em { color: var(–gold); font-style: italic; }
+
+.options { display: flex; flex-direction: column; gap: 12px; }
+
+.option {
+background: rgba(255,255,255,0.03);
+border: 1px solid rgba(255,255,255,0.08);
+padding: 18px 22px;
+cursor: pointer;
+border-radius: 2px;
+display: flex;
+align-items: flex-start;
+gap: 16px;
+transition: all 0.2s;
+text-align: left;
+}
+.option:hover {
+background: rgba(201,168,76,0.06);
+border-color: rgba(201,168,76,0.3);
+transform: translateX(4px);
+}
+.option.selected {
+background: rgba(201,168,76,0.12);
+border-color: var(–gold);
+}
+.option-letter {
+width: 28px; height: 28px;
+border: 1px solid rgba(201,168,76,0.35);
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.7rem;
+color: var(–gold);
+flex-shrink: 0;
+transition: all 0.2s;
+}
+.option.selected .option-letter {
+background: var(–gold);
+color: var(–navy);
+border-color: var(–gold);
+}
+.option-text {
+font-size: 0.95rem;
+color: rgba(255,255,255,0.8);
+line-height: 1.45;
+padding-top: 2px;
+}
+.option.selected .option-text { color: var(–white); }
+
+/* ── RESULT SCREEN ── */
+.result-wrap {
+width: 100%;
+max-width: 640px;
+animation: fadeUp 0.5s ease both;
+}
+
+.result-badge {
+display: inline-flex;
+align-items: center;
+gap: 8px;
+background: rgba(201,168,76,0.12);
+border: 1px solid rgba(201,168,76,0.25);
+padding: 6px 16px;
+margin-bottom: 24px;
+border-radius: 2px;
+}
+.result-badge span {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.65rem;
+letter-spacing: 2px;
+color: var(–gold);
+text-transform: uppercase;
+}
+
+.result-profile {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.7rem;
+letter-spacing: 3px;
+color: var(–gold);
+text-transform: uppercase;
+margin-bottom: 10px;
+}
+
+.result-title {
+font-family: ‘Playfair Display’, serif;
+font-size: clamp(1.8rem, 5vw, 2.6rem);
+line-height: 1.15;
+margin-bottom: 20px;
+}
+.result-title em { color: var(–gold); font-style: italic; }
+
+.result-desc {
+font-size: 0.95rem;
+color: rgba(255,255,255,0.65);
+line-height: 1.75;
+margin-bottom: 32px;
+font-weight: 300;
+}
+.result-desc strong { color: var(–white); font-weight: 600; }
+
+.result-divider {
+width: 100%;
+height: 1px;
+background: rgba(201,168,76,0.15);
+margin-bottom: 32px;
+}
+
+.result-cta-label {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.65rem;
+letter-spacing: 2.5px;
+color: rgba(255,255,255,0.35);
+text-transform: uppercase;
+margin-bottom: 16px;
+}
+
+.result-cta-headline {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.4rem;
+line-height: 1.3;
+margin-bottom: 14px;
+}
+
+.result-cta-sub {
+font-size: 0.88rem;
+color: rgba(255,255,255,0.5);
+line-height: 1.65;
+margin-bottom: 28px;
+font-weight: 300;
+}
+
+.result-pillars {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 10px;
+margin-bottom: 32px;
+}
+.result-pillar {
+background: rgba(255,255,255,0.03);
+border: 1px solid rgba(201,168,76,0.12);
+padding: 14px 12px;
+text-align: center;
+border-radius: 2px;
+}
+.result-pillar-icon { font-size: 1.2rem; margin-bottom: 6px; display: block; }
+.result-pillar-name { font-size: 0.75rem; font-weight: 600; color: var(–white); margin-bottom: 2px; }
+.result-pillar-desc { font-size: 0.68rem; color: rgba(255,255,255,0.4); line-height: 1.4; }
+
+.btn-cta {
+background: linear-gradient(135deg, var(–gold) 0%, #a8771e 100%);
+color: var(–navy);
+border: none;
+padding: 18px 32px;
+font-family: ‘DM Sans’, sans-serif;
+font-weight: 700;
+font-size: 1rem;
+cursor: pointer;
+border-radius: 2px;
+transition: transform 0.15s, box-shadow 0.15s;
+box-shadow: 0 4px 24px rgba(201,168,76,0.25);
+width: 100%;
+margin-bottom: 14px;
+}
+.btn-cta:hover {
+transform: translateY(-2px);
+box-shadow: 0 8px 32px rgba(201,168,76,0.35);
+}
+
+.btn-retry {
+background: transparent;
+border: 1px solid rgba(255,255,255,0.12);
+color: rgba(255,255,255,0.4);
+padding: 12px 24px;
+font-family: ‘DM Sans’, sans-serif;
+font-size: 0.85rem;
+cursor: pointer;
+border-radius: 2px;
+width: 100%;
+transition: border-color 0.2s, color 0.2s;
+}
+.btn-retry:hover {
+border-color: rgba(255,255,255,0.25);
+color: rgba(255,255,255,0.65);
+}
+
+.result-price {
+text-align: center;
+margin: 20px 0 0;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.7rem;
+letter-spacing: 1.5px;
+color: rgba(255,255,255,0.25);
+}
+.result-price strong { color: var(–gold); }
+
+/* ── FOOTER ── */
+.footer {
+margin-top: 60px;
+text-align: center;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.62rem;
+letter-spacing: 2px;
+color: rgba(255,255,255,0.15);
+text-transform: uppercase;
+}
+
+@media (max-width: 480px) {
+.result-pillars { grid-template-columns: 1fr; }
+.intro-title { font-size: 1.8rem; }
+}
+</style>
+
+</head>
+<body>
+
+<!-- Stars background -->
+
+<div class="stars" id="stars"></div>
+<div class="glow-top"></div>
+
+<div class="wrapper">
+
+  <!-- HEADER -->
+
+  <div class="header">
+    <div class="logo-mark">✈</div>
+    <div class="logo-name">Decifrando Milhas · 2026</div>
+  </div>
+
+  <!-- SCREEN: INTRO -->
+
+  <div class="screen active" id="screen-intro">
+    <div class="intro-eyebrow">Quiz de Diagnóstico</div>
+
+```
+<h1 class="intro-title">
+  Qual é o seu<br><em>perfil de milhas?</em>
+</h1>
+
+<p class="intro-sub">
+  5 perguntas. 2 minutos. Descubra exatamente onde você está travado — e o que falta para voar em executiva pagando até 90% menos.
+</p>
+
+<div class="intro-bullets">
+  <div class="bullet">
+    <div class="bullet-icon">🎯</div>
+    <div class="bullet-text"><strong>Diagnóstico personalizado</strong> baseado na sua situação real com pontos</div>
+  </div>
+  <div class="bullet">
+    <div class="bullet-icon">🗺️</div>
+    <div class="bullet-text"><strong>Plano de ação</strong> específico para o seu perfil chegar à executiva</div>
+  </div>
+  <div class="bullet">
+    <div class="bullet-icon">⚡</div>
+    <div class="bullet-text"><strong>Resultado imediato</strong> — sem cadastro, sem enrolação</div>
+  </div>
+</div>
+
+<button class="btn-start" onclick="startQuiz()">Descobrir Meu Perfil →</button>
+<p class="intro-note">5 perguntas · resultado imediato</p>
+```
+
+  </div>
+
+  <!-- SCREEN: QUESTION -->
+
+  <div class="screen" id="screen-question">
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span class="progress-label">Pergunta <span id="q-current">1</span> de 5</span>
+        <span class="progress-frac" id="q-frac">20%</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progress-fill" style="width:20%"></div>
+      </div>
+    </div>
+
+```
+<div class="question-wrap" id="question-wrap">
+  <!-- injected by JS -->
+</div>
+```
+
+  </div>
+
+  <!-- SCREEN: RESULT -->
+
+  <div class="screen" id="screen-result">
+    <!-- injected by JS -->
+  </div>
+
+  <div class="footer">decifrandomilhas.com.br · @decifrandominhasmilhas</div>
+
+</div>
+
+<script>
+// ── Stars
+const starsEl = document.getElementById('stars');
+for (let i = 0; i < 60; i++) {
+  const s = document.createElement('div');
+  s.className = 'star';
+  s.style.cssText = `
+    left:${Math.random()*100}%;
+    top:${Math.random()*100}%;
+    --d:${2+Math.random()*4}s;
+    --delay:-${Math.random()*4}s;
+    opacity:${0.2+Math.random()*0.5};
+  `;
+  starsEl.appendChild(s);
+}
+
+// ── Quiz Data
+const questions = [
+  {
+    text: 'Como estão seus pontos <em>agora mesmo?</em>',
+    options: [
+      { letter:'A', text:'Tenho pontos acumulando mas nunca fiz nenhuma transferência', profile:'nunca-transferiu' },
+      { letter:'B', text:'Já transferi algumas vezes, mas sempre fora de promoção ou sem estratégia', profile:'viajante-economica' },
+      { letter:'C', text:'Recebi aviso de expiração e preciso agir nos próximos dias', profile:'expirando' },
+      { letter:'D', text:'Tenho uma viagem planejada e quero usar os pontos para essa meta específica', profile:'lua-de-mel' },
+    ]
+  },
+  {
+    text: 'Quanto você gasta <em>por mês no cartão</em> de crédito?',
+    options: [
+      { letter:'A', text:'Até R$ 2.000 — gastos do dia a dia', profile:'nunca-transferiu' },
+      { letter:'B', text:'Entre R$ 2.000 e R$ 5.000', profile:'viajante-economica' },
+      { letter:'C', text:'Entre R$ 5.000 e R$ 10.000', profile:'lua-de-mel' },
+      { letter:'D', text:'Acima de R$ 10.000 — tenho PJ ou gastos empresariais', profile:'pj' },
+    ]
+  },
+  {
+    text: 'Qual dessas frases <em>mais representa</em> você hoje?',
+    options: [
+      { letter:'A', text:'"Tenho pontos no Livelo e no Smiles mas nunca sei qual vale mais transferir"', profile:'nunca-transferiu' },
+      { letter:'B', text:'"Já voei em econômica com milhas, mas executiva parece fora do alcance"', profile:'viajante-economica' },
+      { letter:'C', text:'"Meus pontos estão expirando e não sei para onde transferir agora"', profile:'expirando' },
+      { letter:'D', text:'"Tenho uma meta clara — quero emitir executiva para uma viagem específica"', profile:'lua-de-mel' },
+    ]
+  },
+  {
+    text: 'O que mais <em>te trava</em> quando pensa em emitir?',
+    options: [
+      { letter:'A', text:'Não sei nem por onde começar — programas, transferências, tudo confuso', profile:'nunca-transferiu' },
+      { letter:'B', text:'Assisto muitos vídeos mas na hora de agir bate a dúvida e fico parado', profile:'viajante-economica' },
+      { letter:'C', text:'Medo de transferir errado e perder os pontos sem garantia de vaga', profile:'expirando' },
+      { letter:'D', text:'Não sei se vou acumular pontos suficientes a tempo da viagem', profile:'lua-de-mel' },
+    ]
+  },
+  {
+    text: 'Qual é o seu <em>sonho de voo</em>?',
+    options: [
+      { letter:'A', text:'Qualquer destino internacional em executiva — só quero a primeira vez', profile:'nunca-transferiu' },
+      { letter:'B', text:'Europa — Paris, Lisboa ou Roma — dormindo numa cama flat', profile:'viajante-economica' },
+      { letter:'C', text:'Usar os pontos que já tenho antes que expirem — destino é secundário', profile:'expirando' },
+      { letter:'D', text:'Uma viagem especial — lua de mel, aniversário, viagem dos sonhos com a família', profile:'lua-de-mel' },
+    ]
+  },
+];
+
+// ── Profiles
+const profiles = {
+  'nunca-transferiu': {
+    label: 'Perfil 01 — O Acumulador Passivo',
+    title: 'Você tem a <em>matéria-prima.</em> Falta o sistema.',
+    desc: `Seus pontos estão lá, acumulando silenciosamente. O problema não é quantidade — é que você ainda não montou a cadeia <strong>acúmulo → transferência → emissão</strong>.<br><br>
+    A boa notícia: 92% dos pontos no Brasil vêm do cartão de crédito, não de voos. Isso significa que você já está fabricando a matéria-prima da executiva todos os dias — no iFood, no abastecimento, no supermercado.<br><br>
+    O que falta é o <strong>Sistema M.A.P.A.</strong>: saber qual programa usar para a sua rota, quando transferir para pegar o bônus certo, e quanto vai custar antes de mover um único ponto.`,
+    cta: 'Quero Ativar Meus Pontos Agora',
+    ctaSub: 'O Planejador Web 2026 calcula programa + milhas + custo exato para a sua rota — antes de você transferir qualquer ponto.'
+  },
+  'viajante-economica': {
+    label: 'Perfil 02 — O Viajante Preso na Econômica',
+    title: 'Você <em>quase chegou</em> lá. O salto é menor do que parece.',
+    desc: `Você já entende milhas para econômica. Mas executiva parece outro mundo — e não é. <strong>A diferença está em dois detalhes:</strong> usar tabela fixa (como Iberia Plus com 42.500 Avios por trecho) e pegar as janelas de bônus de 80 a 120% para chegar ao saldo necessário.<br><br>
+    O erro mais comum do seu perfil: transferir fora de promoção e perder até 50% do potencial. As janelas aparecem em Janeiro, Março, Setembro e Black Friday. <strong>Quem conhece o calendário multiplica o saldo sem gastar mais nada.</strong>`,
+    cta: 'Quero Fazer o Upgrade para Executiva',
+    ctaSub: 'O Decifrando Milhas 2026 tem o calendário completo de janelas de bônus e o Planejador Web que calcula a rota certa para o upgrade.'
+  },
+  'expirando': {
+    label: 'Perfil 03 — Urgência Real',
+    title: 'Você tem <em>dias,</em> não semanas.',
+    desc: `Aviso de expiração chegou. Esse é o estado emocional mais perigoso do nicho: desespero + pressa = decisão errada. <strong>A pior coisa que você pode fazer agora é transferir sem estratégia.</strong><br><br>
+    A boa notícia: existem destinos com tabela fixa que valem muito com poucos pontos. Iberia Plus, AAdvantage e ConnectMiles têm rotas excelentes com saldos menores. <strong>O Seats.aero confirma a vaga antes de você mover qualquer ponto.</strong><br><br>
+    Você precisa de um plano agora — não de mais conteúdo.`,
+    cta: 'Preciso de um Plano Agora',
+    ctaSub: 'O Planejador Web 2026 te diz exatamente para onde transferir com os pontos que você tem — sem risco de perder tudo.'
+  },
+  'lua-de-mel': {
+    label: 'Perfil 04 — O Estrategista com Meta',
+    title: 'Você tem o <em>destino.</em> Falta o caminho exato.',
+    desc: `Você é o perfil mais pronto do quiz. Tem motivação, tem horizonte de tempo, tem meta emocional clara. O que falta é a <strong>cadeia exata:</strong> quanto precisa acumular, qual cartão usar por categoria, em qual janela de bônus transferir e qual programa emitir.<br><br>
+    Com 8 a 11 meses de antecedência e o sistema certo, <strong>praticamente qualquer destino em executiva fica viável</strong> — incluindo Qatar Qsuites, Emirates e Swiss.`,
+    cta: 'Quero Montar Meu Plano de Emissão',
+    ctaSub: 'A Planilha de Acúmulo calcula em quantos meses você chega ao saldo necessário com seus gastos atuais. Sem chute — com projeção real.'
+  },
+  'pj': {
+    label: 'Perfil 05 — O PJ Desperdiçando Ouro',
+    title: 'Você está <em>fabricando</em> executiva todo mês sem saber.',
+    desc: `Com gastos acima de R$ 10.000 mensais no cartão, você está acumulando pontos muito acima da média brasileira. O problema: <strong>sem estratégia de conversão, esse acúmulo extraordinário vira desperdício ordinário.</strong><br><br>
+    Uma única emissão de executiva para a Europa pode custar R$ 2.200 em taxas — o equivalente a menos de um mês de acúmulo no seu ritmo. O sistema certo transforma cada despesa empresarial em milhas estratégicas.`,
+    cta: 'Quero Converter Meus Gastos em Executiva',
+    ctaSub: 'O Decifrando Milhas 2026 tem o mapa completo de cartões por categoria e o Planejador Web que calcula a emissão perfeita para o seu saldo.'
+  }
+};
+
+// ── State
+let answers = [];
+let currentQ = 0;
+
+function startQuiz() {
+  showScreen('screen-question');
+  renderQuestion(0);
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderQuestion(index) {
+  currentQ = index;
+  const q = questions[index];
+  const pct = Math.round(((index + 1) / questions.length) * 100);
+
+  document.getElementById('q-current').textContent = index + 1;
+  document.getElementById('q-frac').textContent = pct + '%';
+  document.getElementById('progress-fill').style.width = pct + '%';
+
+  const wrap = document.getElementById('question-wrap');
+  wrap.style.animation = 'none';
+  wrap.offsetHeight; // reflow
+  wrap.style.animation = 'fadeUp 0.4s ease both';
+
+  wrap.innerHTML = `
+    <div class="q-number">Pergunta ${index + 1} de ${questions.length}</div>
+    <div class="q-text">${q.text}</div>
+    <div class="options">
+      ${q.options.map((opt, i) => `
+        <button class="option" onclick="selectOption(${i}, '${opt.profile}')">
+          <div class="option-letter">${opt.letter}</div>
+          <div class="option-text">${opt.text}</div>
+        </button>
+      `).join('')}
+    </div>
+  `;
+}
+
+function selectOption(optIndex, profile) {
+  // Highlight selected
+  document.querySelectorAll('.option').forEach((el, i) => {
+    el.classList.toggle('selected', i === optIndex);
+  });
+
+  answers.push(profile);
+
+  setTimeout(() => {
+    if (currentQ < questions.length - 1) {
+      renderQuestion(currentQ + 1);
+    } else {
+      showResult();
+    }
+  }, 380);
+}
+
+function showResult() {
+  // Count most frequent profile
+  const counts = {};
+  answers.forEach(p => counts[p] = (counts[p] || 0) + 1);
+  const topProfile = Object.entries(counts).sort((a,b) => b[1]-a[1])[0][0];
+  const p = profiles[topProfile];
+
+  const resultEl = document.getElementById('screen-result');
+  resultEl.innerHTML = `
+    <div class="result-wrap">
+      <div class="result-badge">
+        <span>✦ Seu Resultado</span>
+      </div>
+
+      <div class="result-profile">${p.label}</div>
+      <h2 class="result-title">${p.title}</h2>
+      <p class="result-desc">${p.desc}</p>
+
+      <div class="result-divider"></div>
+
+      <div class="result-cta-label">O próximo passo</div>
+      <h3 class="result-cta-headline">O ecossistema completo para o seu perfil</h3>
+      <p class="result-cta-sub">${p.ctaSub}</p>
+
+      <div class="result-pillars">
+        <div class="result-pillar">
+          <span class="result-pillar-icon">📖</span>
+          <div class="result-pillar-name">Livro Digital</div>
+          <div class="result-pillar-desc">20 capítulos com o Sistema M.A.P.A.</div>
+        </div>
+        <div class="result-pillar">
+          <span class="result-pillar-icon">🗺️</span>
+          <div class="result-pillar-name">Planejador Web</div>
+          <div class="result-pillar-desc">Rota → programa → custo exato</div>
+        </div>
+        <div class="result-pillar">
+          <span class="result-pillar-icon">📊</span>
+          <div class="result-pillar-name">Planilha</div>
+          <div class="result-pillar-desc">Rastreia até bater a meta</div>
+        </div>
+      </div>
+
+      <button class="btn-cta" onclick="window.open('https://decifrandomilhas.com.br', '_blank')">${p.cta} →</button>
+      <button class="btn-retry" onclick="resetQuiz()">↺ Refazer o quiz</button>
+
+      <p class="result-price">Acesso completo por <strong>R$ 197</strong> · 12 meses · Sem renovação automática</p>
+    </div>
+  `;
+
+  showScreen('screen-result');
+}
+
+function resetQuiz() {
+  answers = [];
+  currentQ = 0;
+  showScreen('screen-intro');
+}
+</script>
+
+</body>
+</html>
