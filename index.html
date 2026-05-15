@@ -445,14 +445,14 @@
     <div class="tag">Seu plano está pronto</div>
     <h3 class="offer-title">O ecossistema completo para <em>você começar hoje</em></h3>
     <div class="offer-list">
-      <div class="offer-item"><div class="offer-check">✦</div><div class="offer-text"><strong>Livro Digital</strong> — 20 capítulos com o Sistema M.A.P.A. do zero à emissão</div></div>
-      <div class="offer-item"><div class="offer-check">✦</div><div class="offer-text"><strong>Planejador Web 2026</strong> — calcula programa, milhas e custo exato por rota e mês</div></div>
-      <div class="offer-item"><div class="offer-check">✦</div><div class="offer-text"><strong>Planilha de Acúmulo</strong> — rastreia clube, cartão e bônus até você bater a meta</div></div>
-      <div class="offer-item"><div class="offer-check">✦</div><div class="offer-text"><strong>Calendário de janelas de bônus</strong> — nunca mais perca uma promoção de 80 a 120%</div></div>
-      <div class="offer-item offer-highlight"><div class="offer-check">✦</div><div class="offer-text"><strong>Monitor de Avisos</strong> — alertas diários com as melhores promoções de transferência e emissão, direto para você</div></div>
+      <div class="offer-item"><div class="offer-check">✦</div><div class="offer-text"><strong>eBook Decifrando Milhas 2026</strong> — 20 capítulos com o método M.A.P.A. do zero à emissão em executiva</div></div>
+      <div class="offer-item"><div class="offer-check">✦</div><div class="offer-text"><strong>Planejador de Milhas 2026</strong> — calcula programa, milhas e custo exato por rota e mês em 30 segundos</div></div>
+      <div class="offer-item"><div class="offer-check">✦</div><div class="offer-text"><strong>Planilha Estruturada</strong> — 5 abas + calculadoras para rastrear clube, cartão e bônus até bater a meta</div></div>
+      <div class="offer-item offer-highlight"><div class="offer-check">✦</div><div class="offer-text"><strong>Monitor de Alertas</strong> — alertas diários com as melhores promoções de transferência e emissão, direto para você</div></div>
+      <div class="offer-item"><div class="offer-check">✦</div><div class="offer-text"><strong>15 aulas em vídeo</strong> — 5 trilhas do zero à primeira reserva em executiva, no Hotmart</div></div>
     </div>
     <div class="price-box">
-      <div class="price-label2">Acesso completo por 12 meses</div>
+      <div class="price-label2">Acesso imediato · Atualizado para 2026</div>
       <div class="price-val">R$ 197</div>
       <div class="price-sub2"><s>Cursos concorrentes cobram R$ 397 a R$ 1.497</s><br>Sem renovação automática · Acesso imediato</div>
     </div>
@@ -490,7 +490,7 @@ const profiles = {
     sub: 'A maioria das pessoas que hoje emitem executiva também começou sem saber nada. A diferença é que elas encontraram o sistema antes de perder tempo tentando sozinhas.',
     insight: `Você ainda não usou milhas — e isso é <strong>vantagem</strong>, não desvantagem. Quem começa com o método certo não precisa desaprender erros. Você vai do zero direto para a estratégia que funciona.`,
     before: ['Pontos acumulando sem virar nada','Confusão entre programas e bancos','Acha que executiva é só pra rico','Não sabe por onde começar'],
-    after: ['Sistema M.A.P.A. do zero à emissão','Sabe qual cartão usar em cada gasto','Executiva como meta concreta com data','Primeiro voo premium planejado']
+    after: ['Método M.A.P.A. do zero à emissão','Sabe qual cartão usar em cada gasto','Executiva como meta concreta com data','Primeiro voo premium planejado']
   },
   intermediario: {
     badge: '✦ Diagnóstico: Meio Caminho',
@@ -498,7 +498,7 @@ const profiles = {
     sub: 'Você já deu os primeiros passos. Agora o que trava é a falta de estratégia para transformar pontos espalhados em um voo premium de verdade.',
     insight: `Quem já usou milhas poucas vezes geralmente trava no mesmo ponto: <strong>sabe que dá pra viajar mais barato, mas não sabe montar a cadeia completa</strong> — acumulo → bônus de transferência → emissão na rota certa. É exatamente isso que o Decifrando Milhas resolve.`,
     before: ['Pontos em vários programas sem plano','Perde janelas de bônus de 80 a 120%','Transfere fora de promoção e perde valor','Nunca chegou à executiva com milhas'],
-    after: ['Cadeia completa de acúmulo a emissão','Calendário de bônus para nunca perder','Transferências estratégicas no momento certo','Executiva planejada com rota e data definidas']
+    after: ['Cadeia completa de acúmulo a emissão','Monitor de Alertas para nunca perder bônus','Transferências estratégicas no momento certo','Executiva planejada com rota e data definidas']
   },
   avancado: {
     badge: '✦ Diagnóstico: Hora de Otimizar',
@@ -592,7 +592,7 @@ function buildResult(){
 
   // Frase de ponte personalizada
   const bridges = {
-    iniciante_alto: `<strong>${userName || 'Você'} está pronto(a) para começar.</strong> O Sistema M.A.P.A. foi construído exatamente para quem está no zero — em 20 capítulos você vai do conceito de milheiro até emitir sua primeira executiva com segurança.`,
+    iniciante_alto: `<strong>${userName || 'Você'} está pronto(a) para começar.</strong> O eBook Decifrando Milhas foi construído exatamente para quem está no zero — em 20 capítulos você vai do conceito de milheiro até emitir sua primeira executiva com segurança.`,
     iniciante_medio: `Não precisa saber tudo antes de começar. O Decifrando Milhas tem um caminho estruturado para você seguir no seu ritmo — e a garantia de 7 dias existe exatamente para isso: você testa sem risco.`,
     intermediario_alto: `<strong>${userName || 'Você'} já sabe o suficiente para voar mais alto.</strong> O próximo passo não é mais conteúdo — é o sistema que conecta tudo que você já sabe e elimina os erros que ainda custam valor.`,
     intermediario_medio: `A confusão que você sente não é falta de inteligência — é falta de sistema. O Decifrando Milhas é exatamente o atalho que organiza o que você já sabe e preenche o que falta.`,
